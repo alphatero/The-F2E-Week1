@@ -1,10 +1,11 @@
-/** @type {import('tailwindcss').Config} */
+const path = require('path');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+
 module.exports = {
-    content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
-  theme: {
-    extend: {},
+  webpack: {
+    alias: {
+      '@': path.resolve(__dirname, 'src/'),
+    },
+    plugins: [new TsconfigPathsPlugin()],
   },
-  plugins: [],
-}
+};
