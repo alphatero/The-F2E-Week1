@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        huninn: ['HunInn', 'sans-serif'],
+      },
       colors: {
         primary: {
           DEFAULT: '#007FAB',
