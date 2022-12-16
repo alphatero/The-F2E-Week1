@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       fontFamily: {
         huninn: ['HunInn', 'sans-serif'],
+        genjyuugothic: ['GenJyuuGothic', 'sans-serif'],
       },
       colors: {
         primary: {
