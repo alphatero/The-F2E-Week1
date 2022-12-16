@@ -30,6 +30,10 @@ module.exports = {
           400: '#999999',
           200: '#CCCCCC',
         }
+      },
+      backgroundImage: {
+        'open-menu': "url('@/assets/images/btn_burger_open.png')",
+        'close-menu': "url('@/assets/images/btn_burger_close.png')",
       }
     },
   },
