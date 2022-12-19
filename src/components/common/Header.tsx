@@ -25,7 +25,7 @@ export const Header = () => {
 
   return (
     <>
-      <header className="flex h-14 justify-between">
+      <header className="fixed top-0 left-0 z-10 flex h-14 w-screen justify-between">
         <div className="flex w-full justify-between pt-2">
           <div className="w-10" />
           <h1 className="w-[133px]">
@@ -37,22 +37,23 @@ export const Header = () => {
             </div>
           </button>
         </div>
-        <aside className="absolute flex">
-          <div
-            className={clsx(
-              'absolute h-screen w-screen bg-secondary bg-opacity-80',
-              'transition-all duration-300 ease-in-out',
-              !isMenuOpen && 'opacity-0'
-            )}
-          />
-          <div
-            className={clsx(
-              'z-10 flex items-start transition-all duration-300 ease-in-out',
-              !isMenuOpen && '-translate-x-[152px]'
-            )}
-          >
+        <div
+          className={clsx(
+            'absolute h-screen w-screen bg-secondary bg-opacity-80',
+            'transition-all duration-300 ease-in-out',
+            !isMenuOpen && 'sr-only opacity-0'
+          )}
+        />
+        <aside
+          className={clsx(
+            'absolute flex',
+            'transition-all duration-300 ease-in-out',
+            !isMenuOpen && '-translate-x-[152px]'
+          )}
+        >
+          <div className={clsx('z-10 flex items-start transition-all duration-300 ease-in-out')}>
             <nav className="h-screen bg-primary">
-              <ul className="flex flex-col space-y-10 px-10 pt-10 text-lg text-secondary">
+              <ul className="flex flex-col space-y-10 p-10 text-lg text-secondary">
                 <MenuItem
                   icon="/images/ic/ic_menu_info.png"
                   text="關卡資訊"
@@ -79,7 +80,7 @@ export const Header = () => {
               <div
                 className={clsx(
                   'h-11 bg-contain bg-no-repeat',
-                  isMenuOpen ? 'bg-open-menu' : 'bg-close-menu'
+                  isMenuOpen ? 'bg-close-menu' : 'bg-open-menu'
                 )}
               />
             </button>

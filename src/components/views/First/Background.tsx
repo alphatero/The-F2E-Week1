@@ -1,6 +1,6 @@
 export const Background = () => {
   return (
-    <div className="absolute bottom-1/4 flex w-screen justify-between">
+    <div className="absolute bottom-1/2 flex w-screen translate-y-8 justify-between">
       <img
         src="/images/bg/bg_decorate_01.png"
         className="w-[113px] -translate-x-5"
