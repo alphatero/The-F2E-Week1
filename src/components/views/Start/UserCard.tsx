@@ -1,11 +1,11 @@
 import { Icons } from '@/components/common';
 
-type Props = {
+export type UserInfoTypes = {
   title: string;
   number: number;
 };
 
-export function UserCard({ title, number }: Props) {
+export function UserCard({ title, number }: UserInfoTypes) {
   return (
     <li className="flex w-full flex-col items-center space-y-2">
       <p className="text-xl text-primary">{title}</p>

@@ -25,7 +25,7 @@ export const Header = () => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 z-10 flex h-14 w-screen justify-between">
+      <header className="fixed top-0 left-0 z-10 flex h-14 w-full justify-between">
         <div className="flex w-full justify-between pt-2">
           <div className="w-10" />
           <h1 className="w-[133px]">

@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin')
+
 module.exports = {
     content: [
     "./src/**/*.{js,jsx,ts,tsx}",
@@ -7,7 +9,7 @@ module.exports = {
     extend: {
       fontFamily: {
         huninn: ['HunInn', 'sans-serif'],
-        genjyuugothic: ['GenJyuuGothic', 'sans-serif'],
+        genjyuugothic: ['GenJyuuGothicP', 'sans-serif'],
       },
       colors: {
         primary: {
@@ -35,8 +37,49 @@ module.exports = {
       backgroundImage: {
         'open-menu': "url('@/assets/images/btn_burger_open.png')",
         'close-menu': "url('@/assets/images/btn_burger_close.png')",
+        'btn-sponsor': "url('@/assets/images/btn_sponsor.png')"
       }
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addBase }) {
+      addBase({
+        'h2': {
+          fontWeight: '700',
+          fontSize: '28px',
+          letterSpacing:'0.05em',
+          '@media (min-width: 768px)': {
+            fontSize: '60px',
+            letterSpacing:'0.02em',
+          },
+        },
+        'h3': {
+          fontWeight: '700',
+          fontSize: '24px',
+          '@media (min-width: 768px)': {
+            fontSize: '44px',
+            letterSpacing:'0.02em',
+          }
+        },
+        'h4': {
+          fontWeight: '700',
+          fontSize: '20px',
+          letterSpacing:'0.05em',
+          '@media (min-width: 768px)': {
+            fontSize: '32px',
+            letterSpacing:'0.02em',
+          }
+        },
+        'h5': {
+          fontWeight: '700',
+          fontSize: '18px',
+          letterSpacing:'0.05em',
+          '@media (min-width: 768px)': {
+            fontSize: '24px',
+            letterSpacing:'0.02em',
+          }
+        },
+      })
+    })
+  ],
 }
