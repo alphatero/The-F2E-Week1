@@ -1,5 +1,7 @@
+// import { forwardRef, PropsWithRef, Ref, useEffect } from 'react';
 import { Background } from './Background';
 import { UserCard, UserInfoTypes } from './UserCard';
+import { useRefContext } from '@/components';
 
 const userInfoList: UserInfoTypes[] = [
   {
@@ -17,8 +19,10 @@ const userInfoList: UserInfoTypes[] = [
 ];
 
 export const Start = () => {
+  const { readyRef, startRef } = useRefContext();
+
   return (
-    <div className="relative flex min-h-screen flex-col pt-8">
+    <div className="relative flex min-h-screen flex-col pt-8" ref={startRef}>
       <Background />
       <div className="flex w-full items-center justify-center">
         <img src="/images/logo/logo.png" className="w-[253px]" alt="logo" />
@@ -33,7 +37,10 @@ export const Start = () => {
           <UserCard key={`user_card_${user.title}`} title={user.title} number={user.number} />
         ))}
       </ul>
-      <button className="absolute bottom-1/3 right-0 flex w-[120px] -translate-y-4 flex-col">
+      <button
+        className="absolute bottom-1/3 right-0 flex w-[120px] -translate-y-4 flex-col"
+        ref={readyRef}
+      >
         <p className="-translate-x-2 text-highlight">READY?</p>
         <div className="flex">
           <div className="flex space-x-1 p-3">

@@ -1,4 +1,6 @@
-import { TalkTitle } from '@/components/common';
+import { TalkTitle, useRefContext } from '@/components';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/all';
 
 const questionList = [
   {
@@ -18,11 +20,13 @@ const questionList = [
   },
 ];
 
-export function Question() {
+export const Question = () => {
+  const { questionRef } = useRefContext();
+
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center">
       <div className="relative flex w-full flex-col items-center space-y-6">
-        <TalkTitle title="你是否也有以下困擾？" />
+        <TalkTitle title="你是否也有以下困擾？" ref={questionRef} />
         <ul>
           {questionList.map((question) => (
             <li
@@ -37,4 +41,4 @@ export function Question() {
       </div>
     </div>
   );
-}
+};

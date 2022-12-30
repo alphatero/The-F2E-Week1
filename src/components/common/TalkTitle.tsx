@@ -1,3 +1,5 @@
+import { forwardRef } from 'react';
+
 type Props = {
   title: string;
   about?: {
@@ -6,9 +8,10 @@ type Props = {
   }[];
 };
 
-export function TalkTitle({ title, about }: Props) {
+export const TalkTitle = forwardRef<HTMLDivElement, Props>((props, ref) => {
+  const { title, about } = props;
   return (
-    <>
+    <div className="w-full" ref={ref}>
       <div className="relative flex w-full items-center justify-center">
         <img
           className="h-[72px] w-full translate-y-2"
@@ -24,6 +27,6 @@ export function TalkTitle({ title, about }: Props) {
           ))}
         </div>
       )}
-    </>
+    </div>
   );
-}
+});
