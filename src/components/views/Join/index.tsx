@@ -1,6 +1,10 @@
+import { useRefContext } from '@/components/contexts';
+
 export function Join() {
+  const { joinRef } = useRefContext();
+
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center">
+    <div className="flex min-h-screen w-full flex-col items-center justify-center" ref={joinRef}>
       <div className="relative flex w-full flex-col items-center space-y-10">
         <div className="flex w-full items-center justify-center">
           <img src="/images/logo/logo.png" className="w-[253px]" alt="logo" />

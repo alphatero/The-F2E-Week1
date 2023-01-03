@@ -1,5 +1,7 @@
 import { TalkTitle } from '@/components/common';
+import { useLayoutEffect, useRef } from 'react';
 import { GuideCard } from './GuideCard';
+import gsap from 'gsap';
 
 const guideList = [
   {
@@ -37,27 +39,65 @@ const about = [
 ];
 
 export function Guide() {
-  return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center">
-      <div className="relative flex w-full flex-col items-center space-y-6">
-        <TalkTitle title="年度最強合作，三大主題來襲" about={about} />
-        {/* <div className="flex w-full flex-col items-center">
-          <div className="relative flex w-full items-center justify-center">
-            <img
-              className="h-[72px] w-full translate-y-2"
-              src="/images/bg/bg_talking_c.png"
-              alt=""
-            />
-            <p className="absolute text-2xl text-primary">年度最強合作，三大主題來襲</p>
-          </div>
-          <p className="pt-4 text-xl text-secondary-dark">各路廠商強強聯手</p>
-          <p className="text-xl text-secondary-dark">共同設計出接地氣的網頁互動挑戰關卡</p>
-        </div> */}
+  const titleRef = useRef<HTMLDivElement>(null);
+  const revealsRef = useRef<HTMLElement[]>([]);
+  revealsRef.current = [];
 
-        <ul>
-          {guideList.map((item: itemType) => {
-            return <GuideCard item={item} key={item.week} />;
-          })}
+  useLayoutEffect(() => {
+    const titleEl = titleRef.current;
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: titleEl,
+        scrub: true,
+        start: 'top 60%',
+        end: 'top 40%',
+      },
+    });
+
+    tl.from(titleEl, { opacity: 0 }).to(titleEl, { opacity: 1, yPercent: -20 });
+    const ctx = gsap.context(() => {
+      revealsRef?.current.forEach((el, index) => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            id: `section-${index}`,
+            trigger: el,
+            end: 'bottom 40%',
+            scrub: true,
+            start: 'top center',
+          },
+        });
+        tl.fromTo(
+          el,
+          {
+            opacity: 0,
+          },
+          { opacity: 1, x: 0, y: 0 }
+        );
+        // }
+      });
+    });
+
+    return () => {
+      ctx.revert();
+    };
+  }, []);
+
+  const addToRefs = (el: HTMLLIElement) => {
+    if (el && !revealsRef.current.includes(el)) {
+      revealsRef.current.push(el);
+    }
+  };
+  return (
+    <div className="flex min-h-screen w-full flex-col items-center justify-center py-10">
+      <div className="relative flex w-full flex-col items-center space-y-6">
+        <TalkTitle title="年度最強合作，三大主題來襲" about={about} ref={titleRef} />
+
+        <ul className="space-y-8 overflow-hidden">
+          {guideList.map((item: itemType) => (
+            <li className="flex flex-col items-center space-y-5" key={item.week} ref={addToRefs}>
+              <GuideCard item={item} />
+            </li>
+          ))}
         </ul>
       </div>
     </div>

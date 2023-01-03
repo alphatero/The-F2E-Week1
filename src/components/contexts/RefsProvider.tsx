@@ -7,7 +7,10 @@ interface RefContextTypes {
   bottomRef: RefObject<HTMLImageElement>;
   startRef: RefObject<HTMLDivElement>;
   questionRef: RefObject<HTMLDivElement>;
-  questionRefs: RefObject<[]>;
+  questionRefs: RefObject<HTMLLIElement>;
+  mainRef: RefObject<HTMLElement>;
+  joinRef: RefObject<HTMLDivElement>;
+  joinButtonRef: RefObject<HTMLDivElement>;
 }
 
 const RefContext = createContext<RefContextTypes>({
@@ -16,14 +19,41 @@ const RefContext = createContext<RefContextTypes>({
   startRef: { current: null },
   questionRef: { current: null },
   questionRefs: { current: null },
+  mainRef: { current: null },
+  joinRef: { current: null },
+  joinButtonRef: { current: null },
 });
 
-function animated(element: HTMLElement) {
-  gsap.fromTo(element, { opacity: 1 }, { opacity: 0 });
-}
-function hide(element: HTMLElement) {
-  gsap.set(element, { opacity: 1 });
-}
+// function animated(element: HTMLElement) {
+//   let x = 0;
+
+//   //依照條件設定x初始值
+//   if (element.classList.contains('from-left')) {
+//     x = -100;
+//   } else if (element.classList.contains('from-right')) {
+//     x = 100;
+//   }
+
+//   //設定元素初始值
+//   element.style.transform = `translate(${x}px, 0px)`;
+//   gsap.fromTo(
+//     element,
+//     { x: x, y: 0, opacity: 0, visibility: 'hidden' },
+//     {
+//       duration: 1,
+//       delay: 0.2,
+//       x: 0,
+//       y: 0,
+//       visibility: 'visible',
+//       opacity: '1',
+//       ease: 'expo',
+//       overwrite: 'auto',
+//     }
+//   );
+// }
+// function hide(element: HTMLElement) {
+//   gsap.set(element, { opacity: 0 });
+// }
 
 export const RefProvider = ({ children }: PropsWithChildren) => {
   const readyRef = useRef(null);
@@ -31,6 +61,9 @@ export const RefProvider = ({ children }: PropsWithChildren) => {
   const startRef = useRef(null);
   const questionRef = useRef(null);
   const questionRefs = useRef(null);
+  const mainRef = useRef(null);
+  const joinRef = useRef(null);
+  const joinButtonRef = useRef(null);
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -38,32 +71,10 @@ export const RefProvider = ({ children }: PropsWithChildren) => {
     const readyEl = readyRef.current;
     const bottomEl = bottomRef.current;
     const startEl = startRef.current;
+    const joinEl = joinRef.current;
+    const joinButtonEl = joinButtonRef.current;
     const questionEl = questionRef.current;
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: questionEl,
-        markers: true,
-        scrub: true,
-        pin: true,
-        start: 'top center',
-        end: 'top 40%',
-        // end: 'top center',
-      },
-    });
-
-    tl.from(questionEl, { opacity: 0 }).to(questionEl, { opacity: 1, yPercent: -20 });
-
-    // .to(questionEl, { yPercent: 100 });
-
-    // tl.from(readyEl, {
-    //   // position: 'absolute',
-    //   opacity: 1,
-    // }).to(readyEl, {
-    //   opacity: 0,
-    //   duration: 0.6,
-    // });
-    // gsap.fromTo(readyEl, { opacity: 1 }, { opacity: 0, duration: 0.5 });
     ScrollTrigger.create({
       trigger: readyEl,
       scrub: true,
@@ -79,10 +90,50 @@ export const RefProvider = ({ children }: PropsWithChildren) => {
       end: 'bottom center',
       animation: gsap.fromTo(bottomEl, { scale: 1.5 }, { scale: 0.5, duration: 2 }),
     });
+
+    ScrollTrigger.create({
+      trigger: joinEl,
+      scrub: true,
+      // markers: true,
+      start: 'top center',
+      end: 'bottom center',
+      animation: gsap.fromTo(bottomEl, { scale: 0.5, duration: 2 }, { scale: 1 }),
+    });
+    ScrollTrigger.create({
+      trigger: questionEl,
+      scrub: true,
+      start: 'top center',
+      end: 'bottom center',
+      animation: gsap.fromTo(
+        joinButtonEl,
+        { opacity: 0, visibility: 'hidden' },
+        { opacity: 1, visibility: 'visible' }
+      ),
+    });
+
+    ScrollTrigger.create({
+      trigger: joinEl,
+      scrub: true,
+      // markers: true,
+      start: 'top center',
+      end: 'bottom center',
+      animation: gsap.fromTo(joinButtonEl, { opacity: 1 }, { opacity: 0, visibility: 'hidden' }),
+    });
   }, []);
 
   return (
-    <RefContext.Provider value={{ readyRef, bottomRef, startRef, questionRef, questionRefs }}>
+    <RefContext.Provider
+      value={{
+        readyRef,
+        bottomRef,
+        startRef,
+        questionRef,
+        questionRefs,
+        mainRef,
+        joinRef,
+        joinButtonRef,
+      }}
+    >
       {children}
     </RefContext.Provider>
   );

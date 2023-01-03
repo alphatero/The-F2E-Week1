@@ -8,29 +8,26 @@ import {
   Base,
   Sponsor,
   Join,
-  RefProvider,
+  useRefContext,
 } from '@/components';
-import { useEffect, useRef } from 'react';
+
 import './App.css';
-// import gsap from 'gsap';
-// import { ScrollTrigger } from 'gsap/all';
 
 function App() {
+  const { mainRef } = useRefContext();
   return (
-    <RefProvider>
-      <Base>
-        <main className="flex h-full w-full flex-col">
-          <Start />
-          <Question />
-          <Roles />
-          <Guide />
-          <Schedule />
-          <Rule />
-          <Sponsor />
-          <Join />
-        </main>
-      </Base>
-    </RefProvider>
+    <Base>
+      <main className="flex h-full w-full flex-col" ref={mainRef}>
+        <Start />
+        <Question />
+        <Roles />
+        <Guide />
+        <Schedule />
+        <Rule />
+        <Sponsor />
+        <Join />
+      </main>
+    </Base>
   );
 }
 

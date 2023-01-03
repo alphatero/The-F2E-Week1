@@ -1,9 +1,11 @@
 import { PropsWithChildren } from 'react';
 import { Header } from '../common';
-import { RefProvider, useRefContext } from '../contexts';
+import { useRefContext } from '../contexts';
+import { Icons } from '@/components';
 
 export const Base = ({ children }: PropsWithChildren) => {
-  const { bottomRef } = useRefContext();
+  const { bottomRef, joinButtonRef } = useRefContext();
+
   return (
     <div className="flex h-screen w-full flex-col justify-between bg-secondary pt-14">
       <Header />
@@ -15,6 +17,13 @@ export const Base = ({ children }: PropsWithChildren) => {
           alt="loading"
           ref={bottomRef}
         />
+        <div
+          className="absolute bottom-0 right-0 m-4 flex w-6 flex-col items-center"
+          ref={joinButtonRef}
+        >
+          <p className="py-2 text-xs text-primary">JOIN</p>
+          <Icons.JoinBtn join={true} />
+        </div>
       </div>
     </div>
   );
