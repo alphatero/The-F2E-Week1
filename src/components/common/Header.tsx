@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import clsx from 'clsx';
+import { useRefContext } from '../contexts';
 
 type Props = {
   icon: string;
@@ -19,6 +20,8 @@ const MenuItem = ({ icon, text, link }: Props) => {
 };
 
 export const Header = () => {
+  const { desktopLogoRef } = useRefContext();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleClick = () => setIsMenuOpen(!isMenuOpen);
@@ -26,12 +29,15 @@ export const Header = () => {
   return (
     <>
       <header className="fixed top-0 left-0 z-10 flex h-14 w-full justify-between">
-        <div className="flex w-full justify-between pt-2">
-          <div className="w-10" />
+        <div className="flex w-full justify-between pt-2 lg:px-5">
+          <div className="w-10 lg:hidden" />
           <h1 className="w-[133px]">
-            <img src="/images/logo/logo_text.png" alt="logo" />
+            <img className="lg:hidden" src="/images/logo/logo_text.png" alt="logo" />
+            <div className="opacity-0" ref={desktopLogoRef}>
+              <img className="hidden lg:block" src="/images/logo/logo.png" alt="logo" />
+            </div>
           </h1>
-          <button className="relative pr-2">
+          <button className="relative pr-2 lg:pr-0">
             <div className="w-10">
               <img src="/images/btn/btn_user.png" className="mr-2" alt="user-button" />
             </div>
@@ -48,7 +54,7 @@ export const Header = () => {
           className={clsx(
             'absolute flex',
             'transition-all duration-300 ease-in-out',
-            !isMenuOpen && '-translate-x-[152px]'
+            !isMenuOpen && '-translate-x-[152px] lg:-translate-x-[140px]'
           )}
         >
           <div className={clsx('z-10 flex items-start transition-all duration-300 ease-in-out')}>
@@ -76,7 +82,7 @@ export const Header = () => {
                 />
               </ul>
             </nav>
-            <button className="w-10 pt-3" onClick={handleClick}>
+            <button className="w-10 pt-3 lg:self-center" onClick={handleClick}>
               <div
                 className={clsx(
                   'h-11 bg-contain bg-no-repeat',
