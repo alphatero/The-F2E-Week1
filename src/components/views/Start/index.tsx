@@ -23,67 +23,73 @@ const userInfoList: UserInfoTypes[] = [
 ];
 
 export const Start = () => {
-  const { readyRef, startRef, desktopLogoRef, bottomRef } = useRefContext();
-  const cloudRef = useRef<HTMLDivElement>(null);
-  const readyTextRef = useRef<HTMLDivElement>(null);
-  const usersRef = useRef<HTMLUListElement>(null);
-  const startBgRef = useRef<HTMLImageElement>(null);
-  const startLogoRef = useRef<HTMLDivElement>(null);
+  const {
+    readyRef,
+    startRef,
+    desktopLogoRef,
+    bottomRef,
+    cloudRef,
+    readyTextRef,
+    usersRef,
+    startBgRef,
+    startLogoRef,
+    lightsRef,
+  } = useRefContext();
 
-  const revealsRef = useRef<HTMLElement[]>([]);
-  revealsRef.current = [];
+  lightsRef.current = [];
 
   useLayoutEffect(() => {
     const startEl = startRef.current;
-    // const readyEl = readyRef.current;
     const cloudEl = cloudRef.current;
     const readyTextEl = readyTextRef.current;
     const usersEl = usersRef.current;
+    gsap.config({
+      nullTargetWarn: false,
+    });
 
     const ctx = gsap.context(() => {
       if (!startEl) return;
-
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: startEl,
-            pin: true,
-            scrub: true,
-            end: () => '+=' + (startEl.offsetHeight / 2 + 300),
-            // markers: true,
-          },
-        })
-        // .to(revealsRef.current[0], { opacity: 0, duration: 1 }, '-=1')
-        // .from(cloudEl, { scale: 1 })
-        .to(cloudEl, { scale: 0.5, duration: 3, opacity: 0 }, '-=5')
-        .to(revealsRef.current[2], { opacity: 0, duration: 1 })
-        .to(revealsRef.current[1], { opacity: 0, duration: 1 }, '-=1')
-        .to(revealsRef.current[0], { opacity: 0, duration: 1 }, '-=1')
-        .fromTo(readyTextEl, { text: 'Ready?' }, { text: '', duration: 0.1 }, '-=1')
-        .fromTo(revealsRef.current[0], { opacity: 1, duration: 1 }, { opacity: 0, duration: 1 })
-        .fromTo(revealsRef.current[1], { opacity: 1, duration: 1 }, { opacity: 0, duration: 1 })
-        .to(revealsRef.current[2], { opacity: 1, duration: 1 })
-        .fromTo(readyTextEl, { text: '' }, { text: 'Go!!', duration: 0.1 }, '<')
-        .to(usersEl, { opacity: 0, duration: 1 })
-        .to(readyRef.current, { opacity: 0, duration: 1 }, '-=1')
-        .to(startBgRef.current, { opacity: 0, duration: 1 })
-        .to(startLogoRef.current, { opacity: 0, duration: 1 }, '-=1')
-        .to(desktopLogoRef.current, { opacity: 1, duration: 1 }, '-=1')
-        .to(bottomRef.current, { scale: 0.5, duration: 1 }, '-=1');
+      let mm = gsap.matchMedia();
+      mm.add('(min-width: 769px)', () => {
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: startEl,
+              pin: true,
+              scrub: true,
+              end: () => '+=' + (startEl.offsetHeight / 2 + 300),
+              // markers: true,
+            },
+          })
+          .to(cloudEl, { scale: 0.5, duration: 3, opacity: 0 }, '-=5')
+          .to(lightsRef.current[2], { opacity: 0, duration: 1 })
+          .to(lightsRef.current[1], { opacity: 0, duration: 1 }, '-=1')
+          .to(lightsRef.current[0], { opacity: 0, duration: 1 }, '-=1')
+          .fromTo(readyTextEl, { text: 'Ready?' }, { text: '', duration: 0.1 }, '-=1')
+          .fromTo(lightsRef.current[0], { opacity: 1, duration: 1 }, { opacity: 0, duration: 1 })
+          .fromTo(lightsRef.current[1], { opacity: 1, duration: 1 }, { opacity: 0, duration: 1 })
+          .to(lightsRef.current[2], { opacity: 1, duration: 1 })
+          .fromTo(readyTextEl, { text: '' }, { text: 'Go!!', duration: 0.1 }, '<')
+          .to(usersEl, { opacity: 0, duration: 1 })
+          .to(readyRef.current, { opacity: 0, duration: 1 }, '-=1')
+          .to(startBgRef.current, { opacity: 0, duration: 1 })
+          .to(startLogoRef.current, { opacity: 0, duration: 1 }, '-=1')
+          .to(desktopLogoRef.current, { opacity: 1, duration: 1 }, '-=1')
+          .to(bottomRef.current, { scale: 0.5, duration: 1 }, '-=1');
+      });
     });
-
     return () => ctx.revert();
   });
 
   const addToRefs = (el: HTMLImageElement) => {
-    if (el && !revealsRef.current.includes(el)) {
-      revealsRef.current.push(el);
+    if (el && !lightsRef.current.includes(el)) {
+      lightsRef.current.push(el);
     }
   };
 
   return (
     <div
-      className="relative flex min-h-screen flex-col items-center justify-center pt-8 lg:mb-[1000px] lg:pt-0"
+      className="relative flex min-h-screen flex-col items-center justify-center pt-8 lg:h-full lg:pt-0"
       ref={startRef}
       id="start"
     >
@@ -91,7 +97,7 @@ export const Start = () => {
       <div className="relative flex h-full w-full flex-col items-center">
         <img
           src="/images/main/start.png"
-          className="absolute hidden w-full max-w-[1430px] lg:block"
+          className="absolute -z-10 hidden w-full max-w-[1430px] lg:block lg:h-full"
           alt="start_bg"
           ref={startBgRef}
         />

@@ -1,7 +1,9 @@
+import clsx from 'clsx';
 import { forwardRef } from 'react';
 
 type Props = {
   title: string;
+  className?: string;
   about?: {
     id: number;
     content: string;
@@ -9,10 +11,10 @@ type Props = {
 };
 
 export const TalkTitle = forwardRef<HTMLDivElement, Props>((props, ref) => {
-  const { title, about } = props;
+  const { title, about, className } = props;
 
   return (
-    <div className="w-full" ref={ref}>
+    <div className={clsx('w-full', className)} ref={ref}>
       <div className="relative flex items-center justify-center">
         <img
           src="/images/bg/bg_talking_l.png"
@@ -35,7 +37,7 @@ export const TalkTitle = forwardRef<HTMLDivElement, Props>((props, ref) => {
         />
       </div>
       {about && (
-        <div className="flex flex-col items-center text-xl font-bold text-secondary-dark">
+        <div className="flex flex-col items-center pt-4 text-xl font-bold text-secondary-dark">
           {about.map((item) => (
             <p key={title + item.id}>{item.content}</p>
           ))}

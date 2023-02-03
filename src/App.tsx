@@ -14,17 +14,17 @@ import {
 import './App.css';
 
 function App() {
-  const { mainRef } = useRefContext();
+  // const { mainRef } = useRefContext();
   return (
     <Base>
-      <main className="flex h-full w-full flex-col" ref={mainRef}>
+      <main className="flex h-full w-full flex-col">
         <Start />
         <Question />
         <Roles />
         <Guide />
         <Schedule />
-        <Rule />
-        <Sponsor />
+        {/* <Rule /> */}
+        {/* <Sponsor /> */}
         <Join />
       </main>
     </Base>

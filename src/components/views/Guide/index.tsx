@@ -2,6 +2,8 @@ import { TalkTitle } from '@/components/common';
 import { useLayoutEffect, useRef } from 'react';
 import { GuideCard } from './GuideCard';
 import gsap from 'gsap';
+import { useRefContext } from '@/components';
+import clsx from 'clsx';
 
 const guideList = [
   {
@@ -39,62 +41,81 @@ const about = [
 ];
 
 export function Guide() {
+  const { guideTitleRef, guidesRef } = useRefContext();
   const titleRef = useRef<HTMLDivElement>(null);
   const revealsRef = useRef<HTMLElement[]>([]);
   revealsRef.current = [];
 
   useLayoutEffect(() => {
     const titleEl = titleRef.current;
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: titleEl,
-        scrub: true,
-        start: 'top 60%',
-        end: 'top 40%',
-      },
-    });
-
-    tl.from(titleEl, { opacity: 0 }).to(titleEl, { opacity: 1, yPercent: -20 });
-    const ctx = gsap.context(() => {
-      revealsRef?.current.forEach((el, index) => {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            id: `section-${index}`,
-            trigger: el,
-            end: 'bottom 40%',
-            scrub: true,
-            start: 'top center',
-          },
-        });
-        tl.fromTo(
-          el,
-          {
-            opacity: 0,
-          },
-          { opacity: 1, x: 0, y: 0 }
-        );
-        // }
+    let mm = gsap.matchMedia();
+    mm.add('(max-width: 768px)', () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: guideTitleRef.current,
+          scrub: true,
+          start: 'top 60%',
+          end: 'top 40%',
+        },
       });
-    });
 
-    return () => {
-      ctx.revert();
-    };
+      tl.from(guideTitleRef.current, { opacity: 0 }).to(guideTitleRef.current, {
+        opacity: 1,
+        yPercent: -20,
+      });
+      const ctx = gsap.context(() => {
+        guidesRef?.current.forEach((el, index) => {
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              id: `section-${index}`,
+              trigger: el,
+              end: 'bottom 40%',
+              scrub: true,
+              start: 'top center',
+            },
+          });
+          tl.fromTo(
+            el,
+            {
+              opacity: 0,
+            },
+            { opacity: 1, x: 0, y: 0 }
+          );
+          // }
+        });
+      });
+
+      return () => {
+        ctx.revert();
+      };
+    });
   }, []);
 
   const addToRefs = (el: HTMLLIElement) => {
-    if (el && !revealsRef.current.includes(el)) {
-      revealsRef.current.push(el);
+    if (el && !guidesRef.current.includes(el)) {
+      guidesRef.current.push(el);
     }
   };
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center py-10">
-      <div className="relative flex w-full flex-col items-center space-y-6">
-        <TalkTitle title="年度最強合作，三大主題來襲" about={about} ref={titleRef} />
+    <div
+      className={clsx(
+        'relative flex h-full w-full flex-col items-center justify-center py-28 lg:min-h-screen',
+        'lg:absolute lg:top-0 lg:left-0 lg:items-start lg:justify-start lg:py-0'
+      )}
+    >
+      <div className="relative flex w-full flex-col items-center space-y-6 lg:pt-4">
+        <TalkTitle title="年度最強合作，三大主題來襲" about={about} ref={guideTitleRef} />
 
-        <ul className="space-y-8 overflow-hidden">
+        <ul className="relative h-full w-full max-w-5xl space-y-8 lg:flex lg:justify-center">
           {guideList.map((item: itemType) => (
-            <li className="flex flex-col items-center space-y-5" key={item.week} ref={addToRefs}>
+            <li
+              className={clsx(
+                'flex flex-col items-center space-y-5 lg:absolute lg:w-full lg:px-4',
+                item.week === 2 ? 'lg:items-end' : 'lg:items-start'
+              )}
+              key={item.week}
+              ref={addToRefs}
+            >
               <GuideCard item={item} />
             </li>
           ))}

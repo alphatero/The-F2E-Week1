@@ -2,14 +2,21 @@ import { PropsWithChildren } from 'react';
 import { Header } from '../common';
 import { useRefContext } from '../contexts';
 import { Icons } from '@/components';
+import clsx from 'clsx';
 
 export const Base = ({ children }: PropsWithChildren) => {
-  const { bottomRef, joinButtonRef } = useRefContext();
+  const { bottomRef, joinButtonRef, mainRef } = useRefContext();
 
   return (
-    <div className="flex h-screen w-full flex-col justify-between bg-secondary pt-14 lg:pt-0">
+    <div
+      className={clsx(
+        'flex w-full flex-col justify-between bg-secondary pt-14',
+        'h-screen lg:relative lg:pt-0'
+      )}
+      ref={mainRef}
+    >
       <Header />
-      <div className="w-full bg-secondary pb-28">{children}</div>
+      <div className="relative w-full bg-secondary pb-28 lg:pb-0">{children}</div>
       <div className="fixed bottom-0 left-0 w-full bg-bottom object-contain">
         <img
           className="mx-auto origin-bottom lg:hidden"

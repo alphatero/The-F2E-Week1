@@ -2,6 +2,7 @@ import { Icons, TalkTitle } from '@/components/common';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import { useLayoutEffect, useRef } from 'react';
+import { useRefContext } from '@/components/contexts';
 
 const scheduleList = [
   {
@@ -52,6 +53,7 @@ const scheduleList = [
 ];
 
 export function Schedule() {
+  const { scheduleTitleRef } = useRefContext();
   const titleRef = useRef<HTMLDivElement>(null);
   const sloganRef = useRef<HTMLDivElement>(null);
   const sloganParentRef = useRef<HTMLDivElement>(null);
@@ -63,54 +65,58 @@ export function Schedule() {
     const sloganParentEl = sloganParentRef.current;
     const sloganEl = sloganRef.current;
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: titleEl,
-        scrub: true,
-        start: 'top center',
-        end: 'top 40%',
-      },
-    });
+    let mm = gsap.matchMedia();
 
-    tl.from(titleEl, { opacity: 0 }).to(titleEl, { opacity: 1, yPercent: -20 });
-
-    const tlTwo = gsap.timeline({
-      scrollTrigger: {
-        trigger: sloganParentEl,
-        scrub: true,
-        start: 'top center',
-        end: 'center center',
-      },
-    });
-
-    tlTwo.from(sloganEl, { opacity: 0, scale: 3 }).to(sloganEl, { opacity: 1, scale: 1 });
-
-    const ctx = gsap.context(() => {
-      revealsRef?.current.forEach((el, index) => {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            id: `section-${index}`,
-            trigger: el,
-            end: 'bottom 40%',
-            scrub: true,
-            start: 'top center',
-          },
-        });
-
-        tl.fromTo(
-          el,
-          {
-            opacity: 0,
-          },
-          { opacity: 1, x: 0, y: 0 }
-        );
-        // }
+    mm.add('(max-width: 768px)', () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: titleEl,
+          scrub: true,
+          start: 'top center',
+          end: 'top 40%',
+        },
       });
-    });
 
-    return () => {
-      ctx.revert();
-    };
+      tl.from(titleEl, { opacity: 0 }).to(titleEl, { opacity: 1, yPercent: -20 });
+
+      const tlTwo = gsap.timeline({
+        scrollTrigger: {
+          trigger: sloganParentEl,
+          scrub: true,
+          start: 'top center',
+          end: 'center center',
+        },
+      });
+
+      tlTwo.from(sloganEl, { opacity: 0, scale: 3 }).to(sloganEl, { opacity: 1, scale: 1 });
+
+      const ctx = gsap.context(() => {
+        revealsRef?.current.forEach((el, index) => {
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              id: `section-${index}`,
+              trigger: el,
+              end: 'bottom 40%',
+              scrub: true,
+              start: 'top center',
+            },
+          });
+
+          tl.fromTo(
+            el,
+            {
+              opacity: 0,
+            },
+            { opacity: 1, x: 0, y: 0 }
+          );
+          // }
+        });
+      });
+
+      return () => {
+        ctx.revert();
+      };
+    });
   }, []);
 
   const addToRefs = (el: HTMLLIElement) => {
@@ -120,11 +126,19 @@ export function Schedule() {
   };
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center">
-      <div className="relative flex w-full flex-col items-center space-y-6">
-        <div className="flex w-full flex-col items-center">
-          <TalkTitle title="重要時程" ref={titleRef} />
-          <ul>
+    <div
+      className={clsx(
+        'relative flex h-full min-h-screen w-full flex-col items-center justify-center py-10',
+        'lg:absolute lg:justify-center lg:pt-4 lg:pb-0'
+      )}
+    >
+      <div className="relative flex w-full max-w-5xl flex-col items-center space-y-6 lg:pt-4">
+        <div className="flex w-full flex-col items-center lg:justify-center">
+          <TalkTitle className="lg:hidden" title="重要時程" ref={scheduleTitleRef} />
+          <div className="">
+            <img src="/images/main/date_line.png" alt="line" />
+          </div>
+          <ul className="lg:hidden">
             {scheduleList.map((schedule) => (
               <li
                 key={`schedule_${schedule.id}`}
@@ -150,7 +164,7 @@ export function Schedule() {
             ))}
           </ul>
         </div>
-        <div
+        {/* <div
           className="flex min-h-screen items-center justify-center overflow-hidden"
           ref={sloganParentRef}
         >
@@ -158,7 +172,7 @@ export function Schedule() {
             <span>區區修煉</span>
             <span>已經無法滿足了嗎？</span>
           </h2>
-        </div>
+        </div> */}
       </div>
     </div>
   );

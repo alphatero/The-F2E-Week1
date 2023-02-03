@@ -27,92 +27,79 @@ const questionList = [
 ];
 
 export const Question = () => {
-  const { questionRef } = useRefContext();
+  const { questionRef, questionRefs, questionCardsRef, questionDecorationsRef } = useRefContext();
 
-  const containRef = useRef<HTMLDivElement>(null);
+  // const containRef = useRef<HTMLDivElement>(null);
 
   const revealsRef = useRef<HTMLElement[]>([]);
   revealsRef.current = [];
+  questionCardsRef.current = [];
 
   const [isMobile, setIsMobile] = useState(false);
   useLayoutEffect(() => {
     const questionEl = questionRef.current;
-    const containEl = containRef.current;
+    // const containEl = containRef.current;
 
     const ctx = gsap.context(() => {
-      // let mm = gsap.matchMedia();
+      // if (!containEl) return;
+      let mm = gsap.matchMedia();
 
       // mm.add('(min-width: 769px)', () => {
-      gsap
-        .timeline({
+
+      mm.add('(max-width: 768px)', () => {
+        setIsMobile(true);
+        const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: containEl,
+            trigger: questionEl,
             scrub: true,
-            // pin: true,
-            markers: true,
-            // start: 'top bottom',
-            // end: 'bottom top',
-            // pinSpacing: false,
-            // toggleActions: 'play none none reverse',
-            end: () => `+=400`,
+            start: 'top center',
+            end: 'top 40%',
           },
-        })
-        .to(containEl, { opacity: 0, duration: 1 });
-      // tls
-      //   .fromTo(revealsRef.current[0], { opacity: 0 }, { opacity: 1, duration: 1 })
-      //   .fromTo(questionEl, { opacity: 0 }, { opacity: 1, duration: 1 });
-      // });
+        });
+
+        tl.from(questionEl, { opacity: 0 }).to(questionEl, { opacity: 1, yPercent: -20 });
+        const ctx = gsap.context(() => {
+          questionCardsRef?.current.forEach((el, index) => {
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                id: `section-${index}`,
+                trigger: el,
+                end: 'bottom 40%',
+                scrub: true,
+                start: 'top center',
+              },
+            });
+            tl.fromTo(
+              el,
+              {
+                opacity: 0,
+              },
+              { opacity: 1, x: 0, y: 0 }
+            );
+          });
+        });
+        return () => {
+          mm.revert();
+        };
+      });
       return () => ctx.revert();
-    });
-
-    // mm.add('(max-width: 768px)', () => {
-    //   setIsMobile(true);
-    //   const tl = gsap.timeline({
-    //     scrollTrigger: {
-    //       trigger: questionEl,
-    //       scrub: true,
-    //       start: 'top center',
-    //       end: 'top 40%',
-    //     },
-    //   });
-
-    //   tl.from(questionEl, { opacity: 0 }).to(questionEl, { opacity: 1, yPercent: -20 });
-    //   const ctx = gsap.context(() => {
-    //     revealsRef?.current.forEach((el, index) => {
-    //       const tl = gsap.timeline({
-    //         scrollTrigger: {
-    //           id: `section-${index}`,
-    //           trigger: el,
-    //           end: 'bottom 40%',
-    //           scrub: true,
-    //           start: 'top center',
-    //         },
-    //       });
-    //       tl.fromTo(
-    //         el,
-    //         {
-    //           opacity: 0,
-    //         },
-    //         { opacity: 1, x: 0, y: 0 }
-    //       );
-    //     });
-    //   });
-    //   return () => {
-    //     mm.revert();
-    //   };
-    // });
+    }, []);
   });
 
   const addToRefs = (el: HTMLLIElement) => {
-    if (el && !revealsRef.current.includes(el)) {
-      revealsRef.current.push(el);
+    if (el && !questionCardsRef.current.includes(el)) {
+      questionCardsRef.current.push(el);
     }
   };
 
   return (
     <div
-      className="relative top-0 flex min-h-screen w-full flex-col items-center justify-center lg:sticky lg:top-0 lg:justify-start lg:pt-4"
-      ref={containRef}
+      className={clsx(
+        'relative top-0 flex pb-28',
+        'h-full min-h-screen w-full flex-col items-center justify-center',
+        'lg:absolute lg:justify-start lg:pt-4'
+      )}
+      ref={questionRefs}
       id="question"
     >
       <div className="relative flex w-full flex-col items-center space-y-6">
@@ -135,6 +122,21 @@ export const Question = () => {
             </li>
           ))}
         </ul>
+      </div>
+      <div
+        className="fixed bottom-0 hidden w-full max-w-[1430px] justify-between px-32 lg:flex"
+        ref={questionDecorationsRef}
+      >
+        <div className="relative">
+          <img
+            className="w-[150px] -scale-x-100"
+            src="/images/bg/bg_decorate_09.png"
+            alt="decorate"
+          />
+        </div>
+        <div className="relative">
+          <img className="w-[150px]" src="/images/bg/bg_decorate_09.png" alt="decorate" />
+        </div>
       </div>
     </div>
   );
