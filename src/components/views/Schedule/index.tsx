@@ -10,6 +10,7 @@ const scheduleList = [
     title: 'SIGN UP',
     date: '10/13 - 11/6',
     image: <Icons.JoinBtn join={true} />,
+    weekLineBuffer: 'translate-y-[68px]',
     contents: [
       {
         id: 1,
@@ -22,6 +23,7 @@ const scheduleList = [
     title: 'START',
     date: '10/31 - 11/28',
     image: <img className="w-[140px]" src="/images/main/date_start.png" alt="date_start" />,
+    weekLineBuffer: 'translate-y-[46px]',
     contents: [
       {
         id: 1,
@@ -38,6 +40,7 @@ const scheduleList = [
     title: 'UPLOAD',
     date: '10/31 - 11/28',
     image: <img className="w-[140px]" src="/images/main/date_upload.png" alt="date_upload" />,
+    weekLineBuffer: 'translate-y-[72px]',
     contents: [
       {
         id: 1,
@@ -132,19 +135,21 @@ export function Schedule() {
         'lg:absolute lg:justify-center lg:pt-4 lg:pb-0'
       )}
     >
-      <div className="relative flex w-full max-w-5xl flex-col items-center space-y-6 lg:pt-4">
-        <div className="flex w-full flex-col items-center lg:justify-center">
-          <TalkTitle className="lg:hidden" title="重要時程" ref={scheduleTitleRef} />
-          <div className="">
-            <img src="/images/main/date_line.png" alt="line" />
-          </div>
-          <ul className="lg:hidden">
-            {scheduleList.map((schedule) => (
-              <li
-                key={`schedule_${schedule.id}`}
-                ref={addToRefs}
-                className="flex flex-col items-center space-y-4 py-10"
-              >
+      <div className="relative flex h-full w-full flex-col items-center space-y-6 lg:px-20  lg:pt-4">
+        {/* <div className="flex w-full flex-col items-center lg:justify-center"> */}
+        <TalkTitle className="lg:hidden" title="重要時程" ref={scheduleTitleRef} />
+
+        <ul className="lg:flex">
+          {scheduleList.map((schedule) => (
+            <li
+              key={`schedule_${schedule.id}`}
+              ref={addToRefs}
+              className="relative z-10 flex justify-center py-10 lg:space-x-10"
+            >
+              <div className={clsx('absolute bottom-0 -z-20', schedule.weekLineBuffer)}>
+                <img className="w-8" src="/images/main/date_weekLine.png" alt="weekLine" />
+              </div>
+              <div className="flex flex-col items-center space-y-4 bg-secondary">
                 {schedule.image}
                 <h2 className="text-highlight">{schedule.title}</h2>
                 <div className="rounded-full bg-primary py-2 px-7 text-white">
@@ -160,10 +165,14 @@ export function Schedule() {
                     </span>
                   ))}
                 </h4>
-              </li>
-            ))}
-          </ul>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <div className="relative">
+          <img src="/images/main/date_line.png" alt="line" />
         </div>
+        {/* </div> */}
         {/* <div
           className="flex min-h-screen items-center justify-center overflow-hidden"
           ref={sloganParentRef}

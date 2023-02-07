@@ -29,8 +29,6 @@ const questionList = [
 export const Question = () => {
   const { questionRef, questionRefs, questionCardsRef, questionDecorationsRef } = useRefContext();
 
-  // const containRef = useRef<HTMLDivElement>(null);
-
   const revealsRef = useRef<HTMLElement[]>([]);
   revealsRef.current = [];
   questionCardsRef.current = [];
@@ -38,14 +36,38 @@ export const Question = () => {
   const [isMobile, setIsMobile] = useState(false);
   useLayoutEffect(() => {
     const questionEl = questionRef.current;
-    // const containEl = containRef.current;
-
     const ctx = gsap.context(() => {
-      // if (!containEl) return;
       let mm = gsap.matchMedia();
 
-      // mm.add('(min-width: 769px)', () => {
+      //desktop
+      mm.add('(min-width: 769px)', () => {
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: questionRefs.current,
+              pin: true,
+              scrub: true,
+              pinSpacing: !isMobile,
+              markers: true,
+            },
+          })
+          .fromTo(questionRef.current, { opacity: 0 }, { opacity: 1 })
+          .fromTo(
+            questionCardsRef.current[0],
+            { opacity: 0, xPercent: -100 },
+            { opacity: 1, xPercent: 0 }
+          )
+          .fromTo(questionCardsRef.current[1], { opacity: 0 }, { opacity: 1 })
+          .fromTo(
+            questionCardsRef.current[2],
+            { opacity: 0, xPercent: 100 },
+            { opacity: 1, xPercent: 0 }
+          )
+          .fromTo(questionDecorationsRef.current, { opacity: 1 }, { opacity: 0, scale: 0 })
+          .to(questionRefs.current, { opacity: 0 });
+      });
 
+      //mobile
       mm.add('(max-width: 768px)', () => {
         setIsMobile(true);
         const tl = gsap.timeline({
@@ -58,7 +80,7 @@ export const Question = () => {
         });
 
         tl.from(questionEl, { opacity: 0 }).to(questionEl, { opacity: 1, yPercent: -20 });
-        const ctx = gsap.context(() => {
+        gsap.context(() => {
           questionCardsRef?.current.forEach((el, index) => {
             const tl = gsap.timeline({
               scrollTrigger: {
@@ -78,12 +100,10 @@ export const Question = () => {
             );
           });
         });
-        return () => {
-          mm.revert();
-        };
       });
-      return () => ctx.revert();
-    }, []);
+    });
+
+    return () => ctx.revert();
   });
 
   const addToRefs = (el: HTMLLIElement) => {
@@ -97,7 +117,7 @@ export const Question = () => {
       className={clsx(
         'relative top-0 flex pb-28',
         'h-full min-h-screen w-full flex-col items-center justify-center',
-        'lg:absolute lg:justify-start lg:pt-4'
+        'lg:h-screen lg:justify-start lg:pt-4'
       )}
       ref={questionRefs}
       id="question"

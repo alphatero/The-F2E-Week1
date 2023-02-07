@@ -21,11 +21,11 @@ function App() {
         <Start />
         <Question />
         <Roles />
-        <Guide />
-        <Schedule />
+        {/* <Guide /> */}
+        {/* <Schedule /> */}
         {/* <Rule /> */}
         {/* <Sponsor /> */}
-        <Join />
+        {/* <Join /> */}
       </main>
     </Base>
   );

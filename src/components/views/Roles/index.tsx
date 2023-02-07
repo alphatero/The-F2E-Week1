@@ -44,52 +44,67 @@ const about = [
 export function Roles() {
   const { roleTitleRef, rolesRef } = useRefContext();
   // const titleRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const revealsRef = useRef<HTMLElement[]>([]);
   revealsRef.current = [];
 
   useLayoutEffect(() => {
     // const titleEl = titleRef.current;
-    let mm = gsap.matchMedia();
+    const ctx = gsap.context(() => {
+      let mm = gsap.matchMedia();
 
-    mm.add('(max-width: 768px)', () => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: roleTitleRef.current,
-          scrub: true,
-          start: 'top center',
-          end: 'top 40%',
-        },
-      });
-
-      tl.from(roleTitleRef.current, { opacity: 0 }).to(roleTitleRef.current, {
-        opacity: 1,
-        yPercent: -20,
-      });
-      const ctx = gsap.context(() => {
-        rolesRef?.current.forEach((el, index) => {
-          const tl = gsap.timeline({
+      mm.add('(min-width: 769px)', () => {
+        gsap
+          .timeline({
             scrollTrigger: {
-              id: `section-${index}`,
-              trigger: el,
-              end: 'bottom 40%',
+              trigger: containerRef.current,
+              pin: true,
               scrub: true,
-              start: 'top center',
+              pinSpacing: true,
+              markers: true,
             },
+          })
+          .fromTo(roleTitleRef.current, { opacity: 0 }, { opacity: 1 });
+      });
+
+      mm.add('(max-width: 768px)', () => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: roleTitleRef.current,
+            scrub: true,
+            start: 'top center',
+            end: 'top 40%',
+          },
+        });
+
+        tl.from(roleTitleRef.current, { opacity: 0 }).to(roleTitleRef.current, {
+          opacity: 1,
+          yPercent: -20,
+        });
+        gsap.context(() => {
+          rolesRef?.current.forEach((el, index) => {
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                id: `section-${index}`,
+                trigger: el,
+                end: 'bottom 40%',
+                scrub: true,
+                start: 'top center',
+              },
+            });
+            tl.fromTo(
+              el,
+              {
+                opacity: 0,
+              },
+              { opacity: 1, x: 0, y: 0 }
+            );
+            // }
           });
-          tl.fromTo(
-            el,
-            {
-              opacity: 0,
-            },
-            { opacity: 1, x: 0, y: 0 }
-          );
-          // }
         });
       });
-      return () => {
-        ctx.revert();
-      };
     });
+    return () => ctx.revert();
   });
 
   const addToRefs = (el: HTMLLIElement) => {
@@ -102,8 +117,9 @@ export function Roles() {
     <div
       className={clsx(
         'relative flex h-full min-h-screen w-full flex-col items-center justify-center pb-28',
-        'lg:absolute lg:justify-start lg:pt-4 lg:pb-0'
+        'lg:h-screen lg:justify-start lg:pt-4 lg:pb-0'
       )}
+      ref={containerRef}
     >
       <div className="relative flex w-full flex-col items-center space-y-6">
         <TalkTitle title="本屆主題：互動式網頁設計？" about={about} ref={roleTitleRef} />

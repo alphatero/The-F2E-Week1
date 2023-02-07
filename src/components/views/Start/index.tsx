@@ -57,8 +57,9 @@ export const Start = () => {
               trigger: startEl,
               pin: true,
               scrub: true,
-              end: () => '+=' + (startEl.offsetHeight / 2 + 300),
-              // markers: true,
+              pinSpacing: false,
+              // end: () => '+=' + (startEl.offsetHeight / 2 + 300),
+              markers: true,
             },
           })
           .to(cloudEl, { scale: 0.5, duration: 3, opacity: 0 }, '-=5')
@@ -97,7 +98,7 @@ export const Start = () => {
       <div className="relative flex h-full w-full flex-col items-center">
         <img
           src="/images/main/start.png"
-          className="absolute -z-10 hidden w-full max-w-[1430px] lg:block lg:h-full"
+          className="absolute hidden w-full max-w-[1430px] lg:block lg:h-full"
           alt="start_bg"
           ref={startBgRef}
         />
@@ -108,7 +109,7 @@ export const Start = () => {
         </div>
 
         <div
-          className="flex w-full flex-col items-center justify-center space-y-5 py-5"
+          className="z-10 flex w-full flex-col items-center justify-center space-y-5 py-5"
           ref={startLogoRef}
         >
           <img src="/images/logo/logo_text.png" className="hidden w-[680px] lg:block" alt="logo" />
@@ -129,7 +130,7 @@ export const Start = () => {
           ref={readyRef}
         >
           <div
-            className="-translate-x-2 font-bold text-highlight lg:text-[32px]"
+            className="-translate-x-2 self-center font-bold text-highlight lg:text-[32px]"
             ref={readyTextRef}
           >
             {/* READY? */}
