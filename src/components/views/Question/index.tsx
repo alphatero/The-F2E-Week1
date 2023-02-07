@@ -27,7 +27,8 @@ const questionList = [
 ];
 
 export const Question = () => {
-  const { questionRef, questionRefs, questionCardsRef, questionDecorationsRef } = useRefContext();
+  const { questionRef, questionRefs, questionCardsRef, questionDecorationsRef, bottomRef } =
+    useRefContext();
 
   const revealsRef = useRef<HTMLElement[]>([]);
   revealsRef.current = [];
@@ -64,7 +65,8 @@ export const Question = () => {
             { opacity: 1, xPercent: 0 }
           )
           .fromTo(questionDecorationsRef.current, { opacity: 1 }, { opacity: 0, scale: 0 })
-          .to(questionRefs.current, { opacity: 0 });
+          .to(questionRefs.current, { opacity: 0 })
+          .to(bottomRef.current, { scale: 1 });
       });
 
       //mobile

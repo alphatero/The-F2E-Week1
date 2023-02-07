@@ -45,6 +45,7 @@ export function Roles() {
   const { roleTitleRef, rolesRef } = useRefContext();
   // const titleRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const roleRef = useRef<HTMLUListElement>(null);
   const revealsRef = useRef<HTMLElement[]>([]);
   revealsRef.current = [];
 
@@ -64,7 +65,10 @@ export function Roles() {
               markers: true,
             },
           })
-          .fromTo(roleTitleRef.current, { opacity: 0 }, { opacity: 1 });
+          .fromTo(roleTitleRef.current, { opacity: 0 }, { opacity: 1 })
+          .fromTo(roleRef.current, { opacity: 0, yPercent: 50 }, { opacity: 1, yPercent: 0 })
+          .to(roleTitleRef.current, { opacity: 0 })
+          .to(roleRef.current, { opacity: 0, yPercent: 50 }, '<+=100%');
       });
 
       mm.add('(max-width: 768px)', () => {
@@ -123,7 +127,7 @@ export function Roles() {
     >
       <div className="relative flex w-full flex-col items-center space-y-6">
         <TalkTitle title="本屆主題：互動式網頁設計？" about={about} ref={roleTitleRef} />
-        <ul className="overflow-hidden lg:flex lg:space-x-24">
+        <ul className="overflow-hidden lg:flex lg:space-x-24" ref={roleRef}>
           {roleList.map((role) => (
             <li
               key={`role_${role.id}`}
