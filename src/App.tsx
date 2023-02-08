@@ -22,7 +22,7 @@ function App() {
         <Question />
         <Roles />
         <Guide />
-        {/* <Schedule /> */}
+        <Schedule />
         {/* <Rule /> */}
         {/* <Sponsor /> */}
         {/* <Join /> */}

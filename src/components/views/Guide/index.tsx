@@ -42,14 +42,11 @@ const about = [
 
 export function Guide() {
   const { guideTitleRef, guidesRef, bottomRef } = useRefContext();
-  const titleRef = useRef<HTMLDivElement>(null);
   const revealsRef = useRef<HTMLElement[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   revealsRef.current = [];
 
   useLayoutEffect(() => {
-    const titleEl = titleRef.current;
-
     const ctx = gsap.context(() => {
       let mm = gsap.matchMedia();
 
@@ -130,7 +127,7 @@ export function Guide() {
     return () => {
       ctx.revert();
     };
-  }, []);
+  });
 
   const addToRefs = (el: HTMLLIElement) => {
     if (el && !guidesRef.current.includes(el)) {
