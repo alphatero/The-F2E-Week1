@@ -21,7 +21,7 @@ function App() {
         <Start />
         <Question />
         <Roles />
-        {/* <Guide /> */}
+        <Guide />
         {/* <Schedule /> */}
         {/* <Rule /> */}
         {/* <Sponsor /> */}

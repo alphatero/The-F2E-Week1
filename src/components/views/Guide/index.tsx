@@ -41,54 +41,95 @@ const about = [
 ];
 
 export function Guide() {
-  const { guideTitleRef, guidesRef } = useRefContext();
+  const { guideTitleRef, guidesRef, bottomRef } = useRefContext();
   const titleRef = useRef<HTMLDivElement>(null);
   const revealsRef = useRef<HTMLElement[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
   revealsRef.current = [];
 
   useLayoutEffect(() => {
     const titleEl = titleRef.current;
-    let mm = gsap.matchMedia();
-    mm.add('(max-width: 768px)', () => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: guideTitleRef.current,
-          scrub: true,
-          start: 'top 60%',
-          end: 'top 40%',
-        },
+
+    const ctx = gsap.context(() => {
+      let mm = gsap.matchMedia();
+
+      mm.add('(min-width: 769px)', () => {
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: containerRef.current,
+              pin: true,
+              scrub: true,
+              pinSpacing: true,
+              markers: true,
+            },
+          })
+          .fromTo(guideTitleRef.current, { opacity: 0 }, { opacity: 1 })
+          .to(bottomRef.current, { scale: 0.5 }, '-=1')
+          .fromTo(
+            guidesRef.current[0],
+            { opacity: 0, xPercent: 0, yPercent: 100 },
+            { opacity: 1, yPercent: 0, duration: 1 }
+          )
+          .to(guidesRef.current[0], { opacity: 0, duration: 1, yPercent: -100, delay: 1 })
+          .fromTo(
+            guidesRef.current[1],
+            { opacity: 0, xPercent: 0, yPercent: 100 },
+            { opacity: 1, yPercent: 0, duration: 1 },
+            '-=1'
+          )
+          .to(guidesRef.current[1], { opacity: 0, duration: 1, yPercent: -100, delay: 1 })
+          .fromTo(
+            guidesRef.current[2],
+            { opacity: 0, xPercent: 0, yPercent: 100 },
+            { opacity: 1, yPercent: 0, duration: 1 },
+            '-=1'
+          )
+          .to(guidesRef.current[2], { opacity: 0, duration: 1, yPercent: -100, delay: 1 })
+          .to(guideTitleRef.current, { opacity: 0, duration: 1 })
+          .to(bottomRef.current, { scale: 0.7 });
       });
 
-      tl.from(guideTitleRef.current, { opacity: 0 }).to(guideTitleRef.current, {
-        opacity: 1,
-        yPercent: -20,
-      });
-      const ctx = gsap.context(() => {
-        guidesRef?.current.forEach((el, index) => {
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              id: `section-${index}`,
-              trigger: el,
-              end: 'bottom 40%',
-              scrub: true,
-              start: 'top center',
-            },
+      mm.add('(max-width: 768px)', () => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: guideTitleRef.current,
+            scrub: true,
+            start: 'top 60%',
+            end: 'top 40%',
+          },
+        });
+
+        tl.from(guideTitleRef.current, { opacity: 0 }).to(guideTitleRef.current, {
+          opacity: 1,
+          yPercent: -20,
+        });
+        gsap.context(() => {
+          guidesRef?.current.forEach((el, index) => {
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                id: `section-${index}`,
+                trigger: el,
+                end: 'bottom 40%',
+                scrub: true,
+                start: 'top center',
+              },
+            });
+            tl.fromTo(
+              el,
+              {
+                opacity: 0,
+              },
+              { opacity: 1, x: 0, y: 0 }
+            );
+            // }
           });
-          tl.fromTo(
-            el,
-            {
-              opacity: 0,
-            },
-            { opacity: 1, x: 0, y: 0 }
-          );
-          // }
         });
       });
-
-      return () => {
-        ctx.revert();
-      };
     });
+    return () => {
+      ctx.revert();
+    };
   }, []);
 
   const addToRefs = (el: HTMLLIElement) => {
@@ -100,8 +141,9 @@ export function Guide() {
     <div
       className={clsx(
         'relative flex h-full w-full flex-col items-center justify-center py-28 lg:min-h-screen',
-        'lg:absolute lg:top-0 lg:left-0 lg:items-start lg:justify-start lg:py-0'
+        'lg:h-screen lg:items-start lg:justify-start lg:py-0'
       )}
+      ref={containerRef}
     >
       <div className="relative flex w-full flex-col items-center space-y-6 lg:pt-4">
         <TalkTitle title="年度最強合作，三大主題來襲" about={about} ref={guideTitleRef} />

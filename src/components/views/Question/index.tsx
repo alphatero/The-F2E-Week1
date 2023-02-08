@@ -49,7 +49,7 @@ export const Question = () => {
               pin: true,
               scrub: true,
               pinSpacing: !isMobile,
-              markers: true,
+              // markers: true,
             },
           })
           .fromTo(questionRef.current, { opacity: 0 }, { opacity: 1 })

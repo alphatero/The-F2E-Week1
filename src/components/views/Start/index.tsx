@@ -59,7 +59,7 @@ export const Start = () => {
               scrub: true,
               pinSpacing: false,
               // end: () => '+=' + (startEl.offsetHeight / 2 + 300),
-              markers: true,
+              // markers: true,
             },
           })
           .to(cloudEl, { scale: 0.5, duration: 3, opacity: 0 }, '-=5')

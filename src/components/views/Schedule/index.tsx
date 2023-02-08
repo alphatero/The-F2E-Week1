@@ -60,6 +60,7 @@ export function Schedule() {
   const titleRef = useRef<HTMLDivElement>(null);
   const sloganRef = useRef<HTMLDivElement>(null);
   const sloganParentRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const revealsRef = useRef<HTMLElement[]>([]);
   revealsRef.current = [];
 
@@ -68,58 +69,73 @@ export function Schedule() {
     const sloganParentEl = sloganParentRef.current;
     const sloganEl = sloganRef.current;
 
-    let mm = gsap.matchMedia();
+    const ctx = gsap.context(() => {
+      let mm = gsap.matchMedia();
 
-    mm.add('(max-width: 768px)', () => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: titleEl,
-          scrub: true,
-          start: 'top center',
-          end: 'top 40%',
-        },
-      });
-
-      tl.from(titleEl, { opacity: 0 }).to(titleEl, { opacity: 1, yPercent: -20 });
-
-      const tlTwo = gsap.timeline({
-        scrollTrigger: {
-          trigger: sloganParentEl,
-          scrub: true,
-          start: 'top center',
-          end: 'center center',
-        },
-      });
-
-      tlTwo.from(sloganEl, { opacity: 0, scale: 3 }).to(sloganEl, { opacity: 1, scale: 1 });
-
-      const ctx = gsap.context(() => {
-        revealsRef?.current.forEach((el, index) => {
-          const tl = gsap.timeline({
+      mm.add('(min-width: 769px)', () => {
+        gsap
+          .timeline({
             scrollTrigger: {
-              id: `section-${index}`,
-              trigger: el,
-              end: 'bottom 40%',
+              trigger: containerRef.current,
+              pin: true,
               scrub: true,
-              start: 'top center',
+              pinSpacing: true,
+              markers: true,
             },
-          });
+          })
+          .fromTo(scheduleTitleRef, { opacity: 0, yPercent: -20 }, { opacity: 1, yPercent: 0 });
+      });
 
-          tl.fromTo(
-            el,
-            {
-              opacity: 0,
-            },
-            { opacity: 1, x: 0, y: 0 }
-          );
-          // }
+      mm.add('(max-width: 768px)', () => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: titleEl,
+            scrub: true,
+            start: 'top center',
+            end: 'top 40%',
+          },
+        });
+
+        tl.from(titleEl, { opacity: 0 }).to(titleEl, { opacity: 1, yPercent: -20 });
+
+        const tlTwo = gsap.timeline({
+          scrollTrigger: {
+            trigger: sloganParentEl,
+            scrub: true,
+            start: 'top center',
+            end: 'center center',
+          },
+        });
+
+        tlTwo.from(sloganEl, { opacity: 0, scale: 3 }).to(sloganEl, { opacity: 1, scale: 1 });
+
+        gsap.context(() => {
+          revealsRef?.current.forEach((el, index) => {
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                id: `section-${index}`,
+                trigger: el,
+                end: 'bottom 40%',
+                scrub: true,
+                start: 'top center',
+              },
+            });
+
+            tl.fromTo(
+              el,
+              {
+                opacity: 0,
+              },
+              { opacity: 1, x: 0, y: 0 }
+            );
+            // }
+          });
         });
       });
-
-      return () => {
-        ctx.revert();
-      };
     });
+    return () => {
+      ctx.revert();
+    };
   }, []);
 
   const addToRefs = (el: HTMLLIElement) => {
@@ -132,8 +148,9 @@ export function Schedule() {
     <div
       className={clsx(
         'relative flex h-full min-h-screen w-full flex-col items-center justify-center py-10',
-        'lg:absolute lg:justify-center lg:pt-4 lg:pb-0'
+        'lg:h-screen lg:justify-center lg:pt-4 lg:pb-0'
       )}
+      ref={containerRef}
     >
       <div className="relative flex h-full w-full flex-col items-center space-y-6 lg:px-20  lg:pt-4">
         {/* <div className="flex w-full flex-col items-center lg:justify-center"> */}
