@@ -1,20 +1,8 @@
-import {
-  Start,
-  Question,
-  Roles,
-  Guide,
-  Schedule,
-  Rule,
-  Base,
-  Sponsor,
-  Join,
-  useRefContext,
-} from '@/components';
+import { Start, Question, Roles, Guide, Schedule, Rule, Base, Sponsor, Join } from '@/components';
 
 import './App.css';
 
 function App() {
-  // const { mainRef } = useRefContext();
   return (
     <Base>
       <main className="flex h-full w-full flex-col">
@@ -23,7 +11,7 @@ function App() {
         <Roles />
         <Guide />
         <Schedule />
-        {/* <Rule /> */}
+        <Rule />
         {/* <Sponsor /> */}
         {/* <Join /> */}
       </main>

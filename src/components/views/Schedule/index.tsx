@@ -146,7 +146,10 @@ export function Schedule() {
           },
         });
 
-        tlTwo.from(sloganEl, { opacity: 0, scale: 5 }).to(sloganEl, { opacity: 1, scale: 1 });
+        tlTwo
+          .from(sloganEl, { opacity: 0, scale: 5 })
+          .to(sloganEl, { opacity: 1, scale: 1 })
+          .to(sloganEl, { opacity: 0, duration: 1 });
 
         gsap.context(() => {
           revealsRef?.current.forEach((el, index) => {
