@@ -4,7 +4,7 @@ import { UserCard, UserInfoTypes } from './UserCard';
 import { useRefContext } from '@/components';
 import gsap from 'gsap';
 import { ScrollTrigger, TextPlugin } from 'gsap/all';
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect } from 'react';
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
 const userInfoList: UserInfoTypes[] = [
@@ -58,8 +58,6 @@ export const Start = () => {
               pin: true,
               scrub: true,
               pinSpacing: false,
-              // end: () => '+=' + (startEl.offsetHeight / 2 + 300),
-              // markers: true,
             },
           })
           .to(cloudEl, { scale: 0.5, duration: 3, opacity: 0 }, '-=5')

@@ -12,7 +12,7 @@ function App() {
         <Guide />
         <Schedule />
         <Rule />
-        {/* <Sponsor /> */}
+        <Sponsor />
         {/* <Join /> */}
       </main>
     </Base>

@@ -38,6 +38,7 @@ module.exports = {
         'open-menu': "url('@/assets/images/btn_burger_open.png')",
         'close-menu': "url('@/assets/images/btn_burger_close.png')",
         'btn-sponsor': "url('@/assets/images/btn_sponsor.png')",
+        'btn-sponsor-active': "url('@/assets/images/btn_sponsor_h.png')",
         'logo-text': "url('@/assets/images/logo_text.png')",
         'talk-c': "url('@/assets/images/bg_talking_c.png')",
       }

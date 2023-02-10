@@ -44,7 +44,7 @@ export function Rule() {
               trigger: containerRef.current,
               pin: true,
               scrub: true,
-              pinSpacing: true,
+              // pinSpacing: true,
             },
           })
           .to(imgEl, { rotation: 360 / 2, duration: 1, ease: 'none' })
@@ -96,7 +96,7 @@ export function Rule() {
     <div
       className={clsx(
         'flex min-h-screen w-full flex-col items-center justify-center',
-        'lg:h-screen lg:items-start lg:justify-start lg:py-0'
+        'lg:h-screen lg:items-start lg:justify-start lg:overflow-x-hidden lg:py-0'
       )}
       ref={containerRef}
     >

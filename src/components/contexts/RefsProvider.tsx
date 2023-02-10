@@ -4,7 +4,6 @@ import {
   useRef,
   PropsWithChildren,
   RefObject,
-  useLayoutEffect,
   MutableRefObject,
 } from 'react';
 import gsap from 'gsap';
@@ -84,91 +83,6 @@ export const RefProvider = ({ children }: PropsWithChildren) => {
   const guideTitleRef = useRef<HTMLDivElement>(null);
   const guidesRef = useRef([]);
   const scheduleTitleRef = useRef<HTMLDivElement>(null);
-
-  // useLayoutEffect(() => {
-  // const mainEl = mainRef.current;
-
-  // const ctx = gsap.context(() => {
-  //   let mm = gsap.matchMedia();
-
-  //   mm.add('(min-width: 769px)', () => {
-  // const tl = gsap.timeline({
-  //   scrollTrigger: {
-  //     trigger: startRef.current,
-  //     pin: true,
-  //     scrub: true,
-  //     // duration: 2,
-  //     // markers: true,
-  //   },
-  // });
-  // tl.fromTo(startRef.current, { opacity: 1 }, { opacity: 0, delay: 18 });
-  // const tl2 = gsap.timeline({
-  //   scrollTrigger: {
-  //     trigger: questionRefs.current,
-  //     pin: true,
-  //     scrub: true,
-  //     // pinSpacing: true,
-  //     // duration: 2,
-  //   },
-  // });
-  // tl2
-  //   .fromTo(questionRef.current, { opacity: 0 }, { opacity: 1, duration: 1 })
-  //   .fromTo(
-  //     questionDecorationsRef.current,
-  //     { opacity: 0 },
-  //     { opacity: 1, duration: 1 },
-  //     '-=1'
-  //   );
-  // .fromTo(
-  //   questionCardsRef.current[0],
-  //   { opacity: 0, xPercent: -100 },
-  //   { opacity: 1, xPercent: 0, duration: 1 }
-  // )
-  // .fromTo(questionCardsRef.current[1], { opacity: 0 }, { opacity: 1, duration: 1 })
-  // .fromTo(
-  //   questionCardsRef.current[2],
-  //   { opacity: 0, xPercent: 100 },
-  //   { opacity: 1, xPercent: 0, duration: 1 }
-  // )
-  // .to(questionDecorationsRef.current, { scale: 0.1, opacity: 0, duration: 5 }, '-=1')
-  // .to(questionRefs.current, { opacity: 0, duration: 1 })
-  // .to(bottomRef.current, { scale: 1, duration: 1 }, '-=1')
-  // .fromTo(roleTitleRef.current, { opacity: 0 }, { opacity: 1, duration: 1, delay: 1 })
-  // .fromTo(rolesRef.current[0], { opacity: 0 }, { opacity: 1, duration: 1 })
-  // .fromTo(rolesRef.current[1], { opacity: 0 }, { opacity: 1, duration: 1 }, '-=1')
-  // .fromTo(rolesRef.current[2], { opacity: 0 }, { opacity: 1, duration: 1 }, '-=1')
-  // .to(roleTitleRef.current, { opacity: 0, duration: 1, delay: 1 })
-  // .to(rolesRef.current, { opacity: 0, duration: 1, yPercent: 100 }, '-=1')
-  // .to(bottomRef.current, { scale: 0.5, duration: 1 })
-  // .fromTo(guideTitleRef.current, { opacity: 0 }, { opacity: 1, duration: 1 }, '-=1')
-  // .fromTo(
-  //   guidesRef.current[0],
-  //   { opacity: 0, xPercent: 0, yPercent: 100 },
-  //   { opacity: 1, yPercent: 0, duration: 1 }
-  // )
-  // .to(guidesRef.current[0], { opacity: 0, duration: 1, yPercent: -100, delay: 1 })
-  // .fromTo(
-  //   guidesRef.current[1],
-  //   { opacity: 0, xPercent: 0, yPercent: 100 },
-  //   { opacity: 1, yPercent: 0, duration: 1 },
-  //   '-=1'
-  // )
-  // .to(guidesRef.current[1], { opacity: 0, duration: 1, yPercent: -100, delay: 1 })
-  // .fromTo(
-  //   guidesRef.current[2],
-  //   { opacity: 0, xPercent: 0, yPercent: 100 },
-  //   { opacity: 1, yPercent: 0, duration: 1 },
-  //   '-=1'
-  // )
-  // .to(guidesRef.current[2], { opacity: 0, duration: 1, yPercent: -100, delay: 1 })
-  // .to(guideTitleRef.current, { opacity: 0, duration: 1 })
-  // .to(bottomRef.current, { scale: 1, duration: 1 }, '-=1')
-  // .fromTo(scheduleTitleRef.current, { opacity: 0 }, { opacity: 1, duration: 1, delay: 1 });
-  // });
-  // });
-
-  // return () => ctx.revert();
-  // }, []);
 
   return (
     <RefContext.Provider
