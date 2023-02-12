@@ -8,16 +8,15 @@ import {
   Base,
   Sponsor,
   Join,
-  useRefContext,
+  Finish,
 } from '@/components';
 
 import './App.css';
 
 function App() {
-  const { mainRef } = useRefContext();
   return (
     <Base>
-      <main className="flex h-full w-full flex-col" ref={mainRef}>
+      <main className="flex h-full w-full flex-col">
         <Start />
         <Question />
         <Roles />
@@ -25,6 +24,7 @@ function App() {
         <Schedule />
         <Rule />
         <Sponsor />
+        <Finish />
         <Join />
       </main>
     </Base>

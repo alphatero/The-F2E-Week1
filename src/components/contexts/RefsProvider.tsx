@@ -1,16 +1,38 @@
-import { createContext, useContext, useEffect, useRef, PropsWithChildren, RefObject } from 'react';
+import {
+  createContext,
+  useContext,
+  useRef,
+  PropsWithChildren,
+  RefObject,
+  MutableRefObject,
+} from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/all';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 interface RefContextTypes {
   readyRef: RefObject<HTMLButtonElement>;
   bottomRef: RefObject<HTMLImageElement>;
   startRef: RefObject<HTMLDivElement>;
   questionRef: RefObject<HTMLDivElement>;
-  questionRefs: RefObject<HTMLLIElement>;
-  mainRef: RefObject<HTMLElement>;
+  questionRefs: RefObject<HTMLDivElement>;
+  mainRef: RefObject<HTMLDivElement>;
   joinRef: RefObject<HTMLDivElement>;
   joinButtonRef: RefObject<HTMLDivElement>;
+  desktopLogoRef: RefObject<HTMLDivElement>;
+  cloudRef: RefObject<HTMLDivElement>;
+  readyTextRef: RefObject<HTMLDivElement>;
+  usersRef: RefObject<HTMLUListElement>;
+  startBgRef: RefObject<HTMLImageElement>;
+  startLogoRef: RefObject<HTMLDivElement>;
+  lightsRef: MutableRefObject<HTMLElement[]>;
+  questionCardsRef: MutableRefObject<HTMLElement[]>;
+  questionDecorationsRef: RefObject<HTMLDivElement>;
+  roleTitleRef: RefObject<HTMLDivElement>;
+  rolesRef: MutableRefObject<HTMLElement[]>;
+  guideTitleRef: RefObject<HTMLDivElement>;
+  guidesRef: MutableRefObject<HTMLElement[]>;
+  scheduleTitleRef: RefObject<HTMLDivElement>;
+  lineRef: RefObject<HTMLDivElement>;
 }
 
 const RefContext = createContext<RefContextTypes>({
@@ -22,73 +44,48 @@ const RefContext = createContext<RefContextTypes>({
   mainRef: { current: null },
   joinRef: { current: null },
   joinButtonRef: { current: null },
+  desktopLogoRef: { current: null },
+  cloudRef: { current: null },
+  readyTextRef: { current: null },
+  usersRef: { current: null },
+  startBgRef: { current: null },
+  startLogoRef: { current: null },
+  lightsRef: { current: [] },
+  questionCardsRef: { current: [] },
+  questionDecorationsRef: { current: null },
+  roleTitleRef: { current: null },
+  rolesRef: { current: [] },
+  guideTitleRef: { current: null },
+  guidesRef: { current: [] },
+  scheduleTitleRef: { current: null },
+  lineRef: { current: null },
 });
+gsap.registerPlugin(ScrollTrigger);
 
 export const RefProvider = ({ children }: PropsWithChildren) => {
   const readyRef = useRef(null);
   const bottomRef = useRef(null);
-  const startRef = useRef(null);
+  const startRef = useRef<HTMLDivElement>(null);
   const questionRef = useRef(null);
   const questionRefs = useRef(null);
   const mainRef = useRef(null);
   const joinRef = useRef(null);
   const joinButtonRef = useRef(null);
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  useEffect(() => {
-    const readyEl = readyRef.current;
-    const bottomEl = bottomRef.current;
-    const startEl = startRef.current;
-    const joinEl = joinRef.current;
-    const joinButtonEl = joinButtonRef.current;
-    const questionEl = questionRef.current;
-
-    ScrollTrigger.create({
-      trigger: readyEl,
-      scrub: true,
-      start: 'top 30%',
-      end: 'top 20%',
-      animation: gsap.fromTo(readyEl, { opacity: 1, duration: 0.5 }, { opacity: 0 }),
-    });
-
-    ScrollTrigger.create({
-      trigger: startEl,
-      scrub: true,
-      start: 'top center',
-      end: 'bottom center',
-      animation: gsap.fromTo(bottomEl, { scale: 1.5 }, { scale: 0.5, duration: 2 }),
-    });
-
-    ScrollTrigger.create({
-      trigger: joinEl,
-      scrub: true,
-
-      start: 'top center',
-      end: 'bottom center',
-      animation: gsap.fromTo(bottomEl, { scale: 0.5, duration: 2 }, { scale: 1 }),
-    });
-    ScrollTrigger.create({
-      trigger: questionEl,
-      scrub: true,
-      start: 'top center',
-      end: 'bottom center',
-      animation: gsap.fromTo(
-        joinButtonEl,
-        { opacity: 0, visibility: 'hidden' },
-        { opacity: 1, visibility: 'visible' }
-      ),
-    });
-
-    ScrollTrigger.create({
-      trigger: joinEl,
-      scrub: true,
-
-      start: 'top center',
-      end: 'bottom center',
-      animation: gsap.fromTo(joinButtonEl, { opacity: 1 }, { opacity: 0, visibility: 'hidden' }),
-    });
-  }, []);
+  const desktopLogoRef = useRef(null);
+  const cloudRef = useRef<HTMLDivElement>(null);
+  const readyTextRef = useRef<HTMLDivElement>(null);
+  const usersRef = useRef<HTMLUListElement>(null);
+  const startBgRef = useRef<HTMLImageElement>(null);
+  const startLogoRef = useRef<HTMLDivElement>(null);
+  const lightsRef = useRef([]);
+  const questionCardsRef = useRef([]);
+  const questionDecorationsRef = useRef<HTMLDivElement>(null);
+  const roleTitleRef = useRef<HTMLDivElement>(null);
+  const rolesRef = useRef([]);
+  const guideTitleRef = useRef<HTMLDivElement>(null);
+  const guidesRef = useRef([]);
+  const scheduleTitleRef = useRef<HTMLDivElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
 
   return (
     <RefContext.Provider
@@ -101,6 +98,21 @@ export const RefProvider = ({ children }: PropsWithChildren) => {
         mainRef,
         joinRef,
         joinButtonRef,
+        desktopLogoRef,
+        cloudRef,
+        readyTextRef,
+        usersRef,
+        startBgRef,
+        startLogoRef,
+        lightsRef,
+        questionCardsRef,
+        questionDecorationsRef,
+        roleTitleRef,
+        rolesRef,
+        guideTitleRef,
+        guidesRef,
+        scheduleTitleRef,
+        lineRef,
       }}
     >
       {children}
