@@ -1,4 +1,15 @@
-import { Start, Question, Roles, Guide, Schedule, Rule, Base, Sponsor, Join } from '@/components';
+import {
+  Start,
+  Question,
+  Roles,
+  Guide,
+  Schedule,
+  Rule,
+  Base,
+  Sponsor,
+  Join,
+  Finish,
+} from '@/components';
 
 import './App.css';
 
@@ -13,7 +24,8 @@ function App() {
         <Schedule />
         <Rule />
         <Sponsor />
-        {/* <Join /> */}
+        <Finish />
+        <Join />
       </main>
     </Base>
   );

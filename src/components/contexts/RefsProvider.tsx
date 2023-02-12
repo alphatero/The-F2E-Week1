@@ -32,6 +32,7 @@ interface RefContextTypes {
   guideTitleRef: RefObject<HTMLDivElement>;
   guidesRef: MutableRefObject<HTMLElement[]>;
   scheduleTitleRef: RefObject<HTMLDivElement>;
+  lineRef: RefObject<HTMLDivElement>;
 }
 
 const RefContext = createContext<RefContextTypes>({
@@ -57,6 +58,7 @@ const RefContext = createContext<RefContextTypes>({
   guideTitleRef: { current: null },
   guidesRef: { current: [] },
   scheduleTitleRef: { current: null },
+  lineRef: { current: null },
 });
 gsap.registerPlugin(ScrollTrigger);
 
@@ -83,6 +85,7 @@ export const RefProvider = ({ children }: PropsWithChildren) => {
   const guideTitleRef = useRef<HTMLDivElement>(null);
   const guidesRef = useRef([]);
   const scheduleTitleRef = useRef<HTMLDivElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
 
   return (
     <RefContext.Provider
@@ -109,6 +112,7 @@ export const RefProvider = ({ children }: PropsWithChildren) => {
         guideTitleRef,
         guidesRef,
         scheduleTitleRef,
+        lineRef,
       }}
     >
       {children}

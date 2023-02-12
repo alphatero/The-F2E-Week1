@@ -81,8 +81,8 @@ export function Schedule() {
               trigger: containerRef.current,
               pin: true,
               scrub: true,
-              pinSpacing: true,
-              markers: true,
+              // pinSpacing: true,
+              // markers: true,
             },
           })
           .fromTo(lineRef.current!.children[0], { scaleX: 1 }, { scaleX: 0, duration: 1 })
@@ -212,7 +212,7 @@ export function Schedule() {
               <div className="flex flex-col items-center space-y-4 bg-secondary">
                 {schedule.image}
                 <h2 className="text-highlight">{schedule.title}</h2>
-                <div className="rounded-full bg-primary py-2 px-7 text-white">
+                <div className="whitespace-nowrap rounded-full bg-primary py-2 px-7 text-white">
                   <h4>{schedule.date}</h4>
                 </div>
                 <h4 className="flex flex-col text-center text-secondary-dark">

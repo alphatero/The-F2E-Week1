@@ -1,10 +1,41 @@
-import { useRefContext } from '@/components/contexts';
+import gsap from 'gsap';
+import { useLayoutEffect, useRef } from 'react';
 
 export function Join() {
-  const { joinRef } = useRefContext();
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      let mm = gsap.matchMedia();
+
+      mm.add('(min-width: 769px)', () => {
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: containerRef.current,
+              pin: true,
+              scrub: true,
+              pinSpacing: true,
+            },
+          })
+          .fromTo(
+            containerRef.current,
+            { opacity: 0, yPercent: 20 },
+            { opacity: 1, yPercent: 0, duration: 1 }
+          );
+      });
+    });
+
+    return () => {
+      ctx.revert();
+    };
+  }, []);
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center" ref={joinRef}>
+    <div
+      className="flex min-h-screen w-full flex-col items-center justify-center"
+      ref={containerRef}
+    >
       <div className="relative flex w-full flex-col items-center space-y-10">
         <div className="flex w-full items-center justify-center">
           <img src="/images/logo/logo.png" className="w-[253px]" alt="logo" />

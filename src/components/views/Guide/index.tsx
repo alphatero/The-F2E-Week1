@@ -57,7 +57,7 @@ export function Guide() {
               trigger: containerRef.current,
               pin: true,
               scrub: true,
-              pinSpacing: true,
+              // pinSpacing: true,
               markers: true,
             },
           })

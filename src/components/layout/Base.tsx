@@ -5,7 +5,7 @@ import { Icons } from '@/components';
 import clsx from 'clsx';
 
 export const Base = ({ children }: PropsWithChildren) => {
-  const { bottomRef, joinButtonRef, mainRef } = useRefContext();
+  const { bottomRef, joinButtonRef, mainRef, lineRef } = useRefContext();
 
   return (
     <div
@@ -24,6 +24,18 @@ export const Base = ({ children }: PropsWithChildren) => {
           alt="loading"
           ref={bottomRef}
         />
+        <div className="absolute bottom-16 z-50 flex w-full justify-center" ref={lineRef}>
+          <img
+            src="/images/main/finishLine_l.png"
+            className="h-[130px] translate-x-4"
+            alt="finish line"
+          />
+          <img
+            src="/images/main/finishLine_r.png"
+            className="h-[130px] -translate-x-4"
+            alt="finish line"
+          />
+        </div>
         <div
           className="absolute bottom-0 hidden w-full origin-bottom items-end justify-center lg:flex"
           ref={bottomRef}

@@ -60,7 +60,12 @@ export const Start = () => {
               pinSpacing: false,
             },
           })
-          .to(cloudEl, { scale: 0.5, duration: 3, opacity: 0 }, '-=5')
+          .fromTo(
+            cloudEl,
+            { scale: 1.5, opacity: 1 },
+            { scale: 0.5, duration: 3, opacity: 0 },
+            '-=5'
+          )
           .to(lightsRef.current[2], { opacity: 0, duration: 1 })
           .to(lightsRef.current[1], { opacity: 0, duration: 1 }, '-=1')
           .to(lightsRef.current[0], { opacity: 0, duration: 1 }, '-=1')
@@ -74,6 +79,7 @@ export const Start = () => {
           .to(startBgRef.current, { opacity: 0, duration: 1 })
           .to(startLogoRef.current, { opacity: 0, duration: 1 }, '-=1')
           .to(desktopLogoRef.current, { opacity: 1, duration: 1 }, '-=1')
+          // .to(cloudEl, { opacity: 0 }, '-=1')
           .to(bottomRef.current, { scale: 0.5, duration: 1 }, '-=1');
       });
     });
