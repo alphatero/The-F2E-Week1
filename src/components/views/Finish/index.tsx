@@ -8,7 +8,6 @@ export function Finish() {
   const { bottomRef, lineRef } = useRefContext();
   const containerRef = useRef<HTMLDivElement>(null);
   const cloudsRef = useRef<HTMLDivElement>(null);
-  // const lineRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -23,7 +22,6 @@ export function Finish() {
               trigger: containerRef.current,
               pin: true,
               scrub: true,
-              // pinSpacing: true,
             },
           })
           .fromTo(

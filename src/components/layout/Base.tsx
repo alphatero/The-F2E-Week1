@@ -5,7 +5,7 @@ import { Icons } from '@/components';
 import clsx from 'clsx';
 
 export const Base = ({ children }: PropsWithChildren) => {
-  const { bottomRef, joinButtonRef, mainRef, lineRef } = useRefContext();
+  const { bottomRef, joinButtonRef, lineRef } = useRefContext();
 
   return (
     <div
@@ -13,7 +13,6 @@ export const Base = ({ children }: PropsWithChildren) => {
         'flex w-full flex-col justify-between bg-secondary pt-14',
         'h-screen lg:relative lg:pt-0'
       )}
-      ref={mainRef}
     >
       <Header />
       <div className="relative w-full bg-secondary pb-28 lg:pb-0">{children}</div>

@@ -44,7 +44,6 @@ export function Rule() {
               trigger: containerRef.current,
               pin: true,
               scrub: true,
-              // pinSpacing: true,
             },
           })
           .to(imgEl, { rotation: 360 / 2, duration: 1, ease: 'none' })

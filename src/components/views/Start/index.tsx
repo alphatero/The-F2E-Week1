@@ -1,10 +1,9 @@
-// import { forwardRef, PropsWithRef, Ref, useEffect } from 'react';
 import { Background } from './Background';
 import { UserCard, UserInfoTypes } from './UserCard';
 import { useRefContext } from '@/components';
 import gsap from 'gsap';
 import { ScrollTrigger, TextPlugin } from 'gsap/all';
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
 const userInfoList: UserInfoTypes[] = [
@@ -23,45 +22,39 @@ const userInfoList: UserInfoTypes[] = [
 ];
 
 export const Start = () => {
-  const {
-    readyRef,
-    startRef,
-    desktopLogoRef,
-    bottomRef,
-    cloudRef,
-    readyTextRef,
-    usersRef,
-    startBgRef,
-    startLogoRef,
-    lightsRef,
-  } = useRefContext();
+  const { desktopLogoRef, bottomRef } = useRefContext();
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cloudRef = useRef<HTMLImageElement>(null);
+  const lightsRef = useRef<HTMLImageElement[]>([]);
+  const readyRef = useRef<HTMLButtonElement>(null);
+  const readyTextRef = useRef<HTMLDivElement>(null);
+  const usersRef = useRef<HTMLUListElement>(null);
+  const startBgRef = useRef<HTMLImageElement>(null);
+  const startLogoRef = useRef<HTMLDivElement>(null);
 
   lightsRef.current = [];
 
   useLayoutEffect(() => {
-    const startEl = startRef.current;
-    const cloudEl = cloudRef.current;
-    const readyTextEl = readyTextRef.current;
-    const usersEl = usersRef.current;
     gsap.config({
       nullTargetWarn: false,
     });
 
     const ctx = gsap.context(() => {
-      if (!startEl) return;
       let mm = gsap.matchMedia();
+
       mm.add('(min-width: 769px)', () => {
         gsap
           .timeline({
             scrollTrigger: {
-              trigger: startEl,
+              trigger: containerRef.current,
               pin: true,
               scrub: true,
               pinSpacing: false,
             },
           })
           .fromTo(
-            cloudEl,
+            cloudRef.current,
             { scale: 1.5, opacity: 1 },
             { scale: 0.5, duration: 3, opacity: 0 },
             '-=5'
@@ -69,17 +62,16 @@ export const Start = () => {
           .to(lightsRef.current[2], { opacity: 0, duration: 1 })
           .to(lightsRef.current[1], { opacity: 0, duration: 1 }, '-=1')
           .to(lightsRef.current[0], { opacity: 0, duration: 1 }, '-=1')
-          .fromTo(readyTextEl, { text: 'Ready?' }, { text: '', duration: 0.1 }, '-=1')
+          .fromTo(readyTextRef.current, { text: 'Ready?' }, { text: '', duration: 0.1 }, '-=1')
           .fromTo(lightsRef.current[0], { opacity: 1, duration: 1 }, { opacity: 0, duration: 1 })
           .fromTo(lightsRef.current[1], { opacity: 1, duration: 1 }, { opacity: 0, duration: 1 })
           .to(lightsRef.current[2], { opacity: 1, duration: 1 })
-          .fromTo(readyTextEl, { text: '' }, { text: 'Go!!', duration: 0.1 }, '<')
-          .to(usersEl, { opacity: 0, duration: 1 })
+          .fromTo(readyTextRef.current, { text: '' }, { text: 'Go!!', duration: 0.1 }, '<')
+          .to(usersRef.current, { opacity: 0, duration: 1 })
           .to(readyRef.current, { opacity: 0, duration: 1 }, '-=1')
           .to(startBgRef.current, { opacity: 0, duration: 1 })
           .to(startLogoRef.current, { opacity: 0, duration: 1 }, '-=1')
           .to(desktopLogoRef.current, { opacity: 1, duration: 1 }, '-=1')
-          // .to(cloudEl, { opacity: 0 }, '-=1')
           .to(bottomRef.current, { scale: 0.5, duration: 1 }, '-=1');
       });
     });
@@ -95,7 +87,7 @@ export const Start = () => {
   return (
     <div
       className="relative flex min-h-screen flex-col items-center justify-center pt-8 lg:h-full lg:pt-0"
-      ref={startRef}
+      ref={containerRef}
       id="start"
     >
       <Background ref={cloudRef} />

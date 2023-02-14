@@ -1,9 +1,7 @@
 import { TalkTitle, useRefContext } from '@/components';
 import clsx from 'clsx';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/all';
 import { useLayoutEffect, useRef, useState } from 'react';
-gsap.registerPlugin(ScrollTrigger);
 
 const questionList = [
   {
@@ -27,8 +25,12 @@ const questionList = [
 ];
 
 export const Question = () => {
-  const { questionRef, questionRefs, questionCardsRef, questionDecorationsRef, bottomRef } =
-    useRefContext();
+  const { bottomRef } = useRefContext();
+
+  const questionRef = useRef<HTMLDivElement>(null);
+  const questionRefs = useRef<HTMLDivElement>(null);
+  const questionCardsRef = useRef<HTMLLIElement[]>([]);
+  const questionDecorationsRef = useRef<HTMLDivElement>(null);
 
   const revealsRef = useRef<HTMLElement[]>([]);
   revealsRef.current = [];
@@ -48,8 +50,6 @@ export const Question = () => {
               trigger: questionRefs.current,
               pin: true,
               scrub: true,
-              // pinSpacing: !isMobile,
-              // markers: true,
             },
           })
           .fromTo(questionRef.current, { opacity: 0 }, { opacity: 1 })

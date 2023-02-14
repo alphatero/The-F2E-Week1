@@ -41,10 +41,10 @@ const about = [
 ];
 
 export function Guide() {
-  const { guideTitleRef, guidesRef, bottomRef } = useRefContext();
-  const revealsRef = useRef<HTMLElement[]>([]);
+  const { bottomRef } = useRefContext();
+  const guideTitleRef = useRef<HTMLDivElement>(null);
+  const guidesRef = useRef<HTMLLIElement[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
-  revealsRef.current = [];
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -57,8 +57,6 @@ export function Guide() {
               trigger: containerRef.current,
               pin: true,
               scrub: true,
-              // pinSpacing: true,
-              markers: true,
             },
           })
           .fromTo(guideTitleRef.current, { opacity: 0 }, { opacity: 1 })
