@@ -56,7 +56,6 @@ const scheduleList = [
 ];
 
 export function Schedule() {
-  // const { scheduleTitleRef } = useRefContext();
   const titleRef = useRef<HTMLDivElement>(null);
   const sloganRef = useRef<HTMLDivElement>(null);
   const sloganParentRef = useRef<HTMLDivElement>(null);

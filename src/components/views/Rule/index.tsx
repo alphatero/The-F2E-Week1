@@ -30,10 +30,6 @@ export function Rule() {
   const cardRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    const titleEl = titleRef.current;
-    const imgEl = imgRef.current;
-    const rulesEl = rulesRef.current;
-
     const ctx = gsap.context(() => {
       let mm = gsap.matchMedia();
 
@@ -46,13 +42,13 @@ export function Rule() {
               scrub: true,
             },
           })
-          .to(imgEl, { rotation: 360 / 2, duration: 1, ease: 'none' })
+          .to(imgRef.current, { rotation: 360 / 2, duration: 1, ease: 'none' })
           .fromTo(
             cardRef.current,
             { opacity: 0, xPercent: -10 },
             { opacity: 1, xPercent: 0, duration: 1 }
           )
-          .fromTo(titleEl, { opacity: 0 }, { opacity: 1, duration: 1 }, '-=1')
+          .fromTo(titleRef.current, { opacity: 0 }, { opacity: 1, duration: 1 }, '-=1')
           .to(cardRef.current, { opacity: 0, xPercent: 10, duration: 1, delay: 1 })
           .to(titleRef.current, { opacity: 0, duration: 1 }, '-=1');
       });
@@ -61,30 +57,30 @@ export function Rule() {
         gsap
           .timeline({
             scrollTrigger: {
-              trigger: titleEl,
+              trigger: titleRef.current,
               scrub: true,
               start: 'top center',
               end: 'top 40%',
             },
           })
-          .from(titleEl, { opacity: 0 })
-          .to(titleEl, { opacity: 1, yPercent: -20 });
+          .from(titleRef.current, { opacity: 0 })
+          .to(titleRef.current, { opacity: 1, yPercent: -20 });
         gsap
           .timeline({
             scrollTrigger: {
-              trigger: titleEl,
+              trigger: titleRef.current,
               scrub: true,
             },
           })
-          .to(imgEl, { rotation: 360 * 2, duration: 1, ease: 'none' });
+          .to(imgRef.current, { rotation: 360 * 2, duration: 1, ease: 'none' });
         gsap
           .timeline({
             scrollTrigger: {
-              trigger: rulesEl,
+              trigger: rulesRef.current,
               scrub: true,
             },
           })
-          .fromTo(rulesEl, { opacity: 0 }, { opacity: 1 });
+          .fromTo(rulesRef.current, { opacity: 0 }, { opacity: 1 });
       });
     });
 

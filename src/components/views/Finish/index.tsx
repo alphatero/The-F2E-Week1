@@ -5,7 +5,7 @@ import { useLayoutEffect, useRef } from 'react';
 import { Background } from '../Start/Background';
 
 export function Finish() {
-  const { bottomRef, lineRef } = useRefContext();
+  const { deskBottomRef, lineRef } = useRefContext();
   const containerRef = useRef<HTMLDivElement>(null);
   const cloudsRef = useRef<HTMLDivElement>(null);
 
@@ -29,13 +29,13 @@ export function Finish() {
           )
           .fromTo(containerRef.current!.children[1], { opacity: 0 }, { opacity: 1, duration: 2 })
           .fromTo(lineRef.current, { opacity: 0 }, { opacity: 1, duration: 2 }, '-=1')
-          .to(bottomRef.current, { scale: 1, duration: 1, delay: 1 })
+          .to(deskBottomRef.current, { scale: 1, duration: 1, delay: 1 })
           .to(cloudsRef.current, { scale: 0.6, duration: 1, opacity: 0 }, '-=1')
           .to(lineRef.current!.children[0], { rotate: -5, xPercent: -5, duration: 1 }, '-=1')
           .to(lineRef.current!.children[1], { rotate: 5, xPercent: 5, duration: 1 }, '-=1')
-          .to(bottomRef.current, { scale: 1.4, duration: 1 })
+          .to(deskBottomRef.current, { scale: 1.4, duration: 1 })
           .to(lineRef.current, { opacity: 0, duration: 1 }, '-=1')
-          .to(bottomRef.current, { opacity: 0, duration: 1 })
+          .to(deskBottomRef.current, { opacity: 0, duration: 1 })
           .to(containerRef.current, { opacity: 0, duration: 1 });
       });
     });
