@@ -52,8 +52,9 @@ export function Finish() {
   return (
     <div
       className={clsx(
-        'relative flex min-h-screen flex-col items-center justify-center pt-8',
-        'lg:h-full lg:max-h-screen lg:overflow-hidden lg:pt-0'
+        'relative min-h-screen flex-col items-center justify-center pt-8 lg:flex',
+        'lg:h-full lg:max-h-screen lg:overflow-hidden lg:pt-0',
+        'hidden'
       )}
       ref={containerRef}
     >
@@ -64,19 +65,6 @@ export function Finish() {
           className="absolute hidden w-full max-w-[1430px] lg:block lg:h-full"
           alt="finish_bg"
         />
-        {/* <div className="z-10 flex items-center"> */}
-
-        {/* </div> */}
-        {/* 
-        <div
-          className="z-10 flex w-full flex-col items-center justify-center space-y-5 py-5"
-          ref={startLogoRef}
-        >
-          <img src="/images/logo/logo_text.png" className="hidden w-[680px] lg:block" alt="logo" />
-          <div className="rounded-full bg-highlight py-1 px-4">
-            <p className="text-xl text-white">互動式網頁設計</p>
-          </div>
-        </div> */}
       </div>
     </div>
   );

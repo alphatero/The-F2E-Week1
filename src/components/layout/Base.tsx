@@ -24,7 +24,10 @@ export const Base = ({ children }: PropsWithChildren) => {
           alt="loading"
           ref={bottomRef}
         />
-        <div className="absolute bottom-16 z-50 flex w-full justify-center" ref={lineRef}>
+        <div
+          className={clsx('absolute bottom-16 z-50 w-full justify-center lg:flex', 'hidden')}
+          ref={lineRef}
+        >
           <img
             src="/images/main/finishLine_l.png"
             className="h-[130px] translate-x-4"

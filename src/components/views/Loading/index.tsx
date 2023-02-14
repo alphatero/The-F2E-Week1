@@ -42,7 +42,7 @@ export const Loading = () => {
       <div className="absolute flex flex-col items-center" ref={loadingRef}>
         <img className="w-[190px]" src="/images/main/loading_2x.gif" alt="loading" />
 
-        <div className="h-[16px] w-[465px] overflow-hidden rounded-full border border-primary">
+        <div className="h-[10px] w-[250px] overflow-hidden rounded-full border border-primary lg:h-[16px] lg:w-[465px]">
           <div className="h-full bg-primary" style={{ width: '45%' }} ref={progressRef} />
         </div>
       </div>
