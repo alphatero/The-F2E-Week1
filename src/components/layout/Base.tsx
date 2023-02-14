@@ -23,21 +23,7 @@ export const Base = ({ children }: PropsWithChildren) => {
           alt="loading"
           ref={bottomRef}
         />
-        <div
-          className={clsx('absolute bottom-16 z-50 w-full justify-center lg:flex', 'hidden')}
-          ref={lineRef}
-        >
-          <img
-            src="/images/main/finishLine_l.png"
-            className="h-[130px] translate-x-4"
-            alt="finish line"
-          />
-          <img
-            src="/images/main/finishLine_r.png"
-            className="h-[130px] -translate-x-4"
-            alt="finish line"
-          />
-        </div>
+
         <div
           className="absolute bottom-0 hidden w-full origin-bottom items-end justify-center lg:flex"
           ref={bottomRef}

@@ -46,22 +46,39 @@ export function Finish() {
   }, []);
 
   return (
-    <div
-      className={clsx(
-        'relative min-h-screen flex-col items-center justify-center pt-8 lg:flex',
-        'lg:h-full lg:max-h-screen lg:overflow-hidden lg:pt-0',
-        'hidden'
-      )}
-      ref={containerRef}
-    >
-      <Background ref={cloudsRef} />
-      <div className="relative flex h-full w-full flex-col items-center">
+    <>
+      <div
+        className={clsx('fixed bottom-16 z-50 w-full justify-center lg:flex', 'hidden')}
+        ref={lineRef}
+      >
         <img
-          src="/images/main/finish.png"
-          className="absolute hidden w-full max-w-[1430px] lg:block lg:h-full"
-          alt="finish_bg"
+          src="/images/main/finishLine_l.png"
+          className="h-[130px] translate-x-4"
+          alt="finish line"
+        />
+        <img
+          src="/images/main/finishLine_r.png"
+          className="h-[130px] -translate-x-4"
+          alt="finish line"
         />
       </div>
-    </div>
+      <div
+        className={clsx(
+          'relative min-h-screen flex-col items-center justify-center pt-8 lg:flex',
+          'lg:h-full lg:max-h-screen lg:overflow-hidden lg:pt-0',
+          'hidden'
+        )}
+        ref={containerRef}
+      >
+        <Background ref={cloudsRef} />
+        <div className="relative flex h-full w-full flex-col items-center">
+          <img
+            src="/images/main/finish.png"
+            className="absolute hidden w-full max-w-[1430px] lg:block lg:h-full"
+            alt="finish_bg"
+          />
+        </div>
+      </div>
+    </>
   );
 }
