@@ -48,6 +48,7 @@ export function Guide() {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
+      if (!bottomRef.current) return;
       let mm = gsap.matchMedia();
 
       mm.add('(min-width: 769px)', () => {

@@ -5,7 +5,7 @@ import { Icons } from '@/components';
 import clsx from 'clsx';
 
 export const Base = ({ children }: PropsWithChildren) => {
-  const { bottomRef, joinButtonRef, lineRef } = useRefContext();
+  const { bottomRef, joinButtonRef } = useRefContext();
 
   return (
     <div
