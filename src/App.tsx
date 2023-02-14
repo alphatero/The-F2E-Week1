@@ -9,6 +9,7 @@ import {
   Sponsor,
   Join,
   Finish,
+  Loading,
 } from '@/components';
 
 import './App.css';
@@ -17,6 +18,7 @@ function App() {
   return (
     <Base>
       <main className="flex h-full w-full flex-col">
+        <Loading />
         <Start />
         <Question />
         <Roles />

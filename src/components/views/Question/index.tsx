@@ -48,7 +48,7 @@ export const Question = () => {
               trigger: questionRefs.current,
               pin: true,
               scrub: true,
-              pinSpacing: !isMobile,
+              // pinSpacing: !isMobile,
               // markers: true,
             },
           })
