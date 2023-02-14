@@ -13,8 +13,6 @@ export function Finish() {
     const ctx = gsap.context(() => {
       let mm = gsap.matchMedia();
 
-      if (!lineRef.current) return;
-
       mm.add('(min-width: 769px)', () => {
         gsap
           .timeline({
