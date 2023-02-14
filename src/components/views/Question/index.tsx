@@ -38,8 +38,6 @@ export const Question = () => {
 
   const [isMobile, setIsMobile] = useState(false);
   useLayoutEffect(() => {
-    if (!bottomRef.current) return;
-
     const questionEl = questionRef.current;
     const ctx = gsap.context(() => {
       let mm = gsap.matchMedia();

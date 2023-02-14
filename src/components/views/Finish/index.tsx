@@ -10,7 +10,6 @@ export function Finish() {
   const cloudsRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    if (!bottomRef.current) return;
     const ctx = gsap.context(() => {
       let mm = gsap.matchMedia();
 

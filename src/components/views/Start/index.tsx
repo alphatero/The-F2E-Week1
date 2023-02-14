@@ -72,7 +72,7 @@ export const Start = () => {
           .to(startBgRef.current, { opacity: 0, duration: 1 })
           .to(startLogoRef.current, { opacity: 0, duration: 1 }, '-=1')
           .to(desktopLogoRef.current, { opacity: 1, duration: 1 }, '-=1')
-          .to(bottomRef.current, { scale: 0.5, duration: 1 }, '-=1');
+          .fromTo(bottomRef.current, { scale: 1 }, { scale: 0.5, duration: 1 }, '-=1');
       });
     });
     return () => ctx.revert();
