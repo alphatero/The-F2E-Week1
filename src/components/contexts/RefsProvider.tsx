@@ -7,6 +7,7 @@ interface RefContextTypes {
   joinRef: RefObject<HTMLDivElement>;
   joinButtonRef: RefObject<HTMLDivElement>;
   desktopLogoRef: RefObject<HTMLDivElement>;
+  deskBottomRef: RefObject<HTMLDivElement>;
   lineRef: RefObject<HTMLDivElement>;
 }
 
@@ -16,6 +17,7 @@ const RefContext = createContext<RefContextTypes>({
   joinButtonRef: { current: null },
   desktopLogoRef: { current: null },
   lineRef: { current: null },
+  deskBottomRef: { current: null },
 });
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,6 +27,7 @@ export const RefProvider = ({ children }: PropsWithChildren) => {
   const joinButtonRef = useRef(null);
   const desktopLogoRef = useRef(null);
   const lineRef = useRef<HTMLDivElement>(null);
+  const deskBottomRef = useRef<HTMLDivElement>(null);
 
   return (
     <RefContext.Provider
@@ -34,6 +37,7 @@ export const RefProvider = ({ children }: PropsWithChildren) => {
         joinButtonRef,
         desktopLogoRef,
         lineRef,
+        deskBottomRef,
       }}
     >
       {children}

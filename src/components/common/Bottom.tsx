@@ -2,7 +2,7 @@ import { useRefContext } from '../contexts';
 import { Icons } from '@/components';
 
 export const Bottom = () => {
-  const { bottomRef, joinButtonRef } = useRefContext();
+  const { bottomRef, joinButtonRef, deskBottomRef } = useRefContext();
   return (
     <div className="fixed bottom-0 left-0 w-full bg-bottom object-contain">
       <img
@@ -14,7 +14,7 @@ export const Bottom = () => {
 
       <div
         className="absolute bottom-0 hidden w-full origin-bottom items-end justify-center lg:flex"
-        ref={bottomRef}
+        ref={deskBottomRef}
       >
         <div className="origin-bottom transition-all duration-150 hover:scale-105">
           <img
