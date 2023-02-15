@@ -41,6 +41,7 @@ export const Start = () => {
     });
 
     console.log(deskBottomRef.current);
+    console.log(desktopLogoRef.current);
     const ctx = gsap.context(() => {
       let mm = gsap.matchMedia();
 
