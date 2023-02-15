@@ -4,7 +4,7 @@ import { Icons } from '@/components';
 export const Bottom = () => {
   const { bottomRef, joinButtonRef, deskBottomRef } = useRefContext();
   return (
-    <div className="fixed bottom-0 left-0 w-full bg-bottom object-contain">
+    <div className="fixed bottom-0 left-0 z-50 w-full bg-bottom object-contain">
       <img
         className="mx-auto origin-bottom lg:hidden"
         src="/images/main/loading_2x.gif"
