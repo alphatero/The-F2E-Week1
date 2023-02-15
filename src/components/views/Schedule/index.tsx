@@ -2,7 +2,6 @@ import { Icons, TalkTitle } from '@/components/common';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import { useLayoutEffect, useRef } from 'react';
-import { useRefContext } from '@/components/contexts';
 
 const scheduleList = [
   {

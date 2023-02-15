@@ -40,6 +40,7 @@ export const Start = () => {
       nullTargetWarn: false,
     });
 
+    console.log(deskBottomRef.current);
     const ctx = gsap.context(() => {
       let mm = gsap.matchMedia();
 

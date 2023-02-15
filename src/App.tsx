@@ -21,13 +21,13 @@ function App() {
         <Loading />
         <Start />
         <Question />
-        {/* <Roles />
+        <Roles />
         <Guide />
         <Schedule />
         <Rule />
         <Sponsor />
         <Finish />
-        <Join /> */}
+        <Join />
       </main>
     </Base>
   );
