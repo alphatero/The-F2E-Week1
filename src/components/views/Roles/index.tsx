@@ -1,5 +1,4 @@
 import { Icons, TalkTitle } from '@/components/common';
-import { useRefContext } from '@/components/contexts';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import { useLayoutEffect, useRef } from 'react';
@@ -42,15 +41,13 @@ const about = [
 ];
 
 export function Roles() {
-  const { roleTitleRef, rolesRef } = useRefContext();
-  // const titleRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const roleRef = useRef<HTMLUListElement>(null);
-  const revealsRef = useRef<HTMLElement[]>([]);
-  revealsRef.current = [];
+  const roleTitleRef = useRef<HTMLDivElement>(null);
+  const rolesRef = useRef<HTMLLIElement[]>([]);
+  rolesRef.current = [];
 
   useLayoutEffect(() => {
-    // const titleEl = titleRef.current;
     const ctx = gsap.context(() => {
       let mm = gsap.matchMedia();
 
@@ -61,8 +58,6 @@ export function Roles() {
               trigger: containerRef.current,
               pin: true,
               scrub: true,
-              // pinSpacing: true,
-              markers: true,
             },
           })
           .fromTo(roleTitleRef.current, { opacity: 0 }, { opacity: 1 })

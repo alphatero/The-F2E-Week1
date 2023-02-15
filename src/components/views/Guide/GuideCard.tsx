@@ -15,7 +15,7 @@ export function GuideCard({ item }: Props) {
       <div>
         <img className="w-[200px]" src={`/images/main/week_${week}.png`} alt={`week_${week}`} />
       </div>
-      <div className="">
+      <div className="text-center lg:text-left">
         <h2 className="text-highlight">WEEK {week}</h2>
         <h3 className="text-primary">{title}</h3>
         <ul className="flex flex-col items-center space-y-4 lg:flex-row lg:space-y-0 lg:space-x-2">
@@ -33,7 +33,7 @@ export function GuideCard({ item }: Props) {
           })}
         </ul>
 
-        <button className="rounded-full bg-secondary-dark text-center text-white lg:mt-2">
+        <button className="mt-6 rounded-full bg-secondary-dark text-center text-white lg:mt-2">
           <p className="py-1 px-6 text-lg">查看關卡細節</p>
         </button>
       </div>

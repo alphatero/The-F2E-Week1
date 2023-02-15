@@ -8,6 +8,29 @@ type Props = {
   link: string;
 };
 
+const MenuList = [
+  {
+    icon: '/images/ic/ic_menu_info.png',
+    text: '關卡資訊',
+    link: 'https://2022.thef2e.com/news',
+  },
+  {
+    icon: '/images/ic/ic_menu_list.png',
+    text: '作品列表',
+    link: 'https://2022.thef2e.com/works',
+  },
+  {
+    icon: '/images/ic/ic_menu_strategy.png',
+    text: '攻略資源',
+    link: 'https://hackmd.io/ofJD4K7iSI65V19zxC7d0w',
+  },
+  {
+    icon: '/images/ic/ic_menu_job.png',
+    text: '求職專區',
+    link: 'https://2022.thef2e.com/jobs',
+  },
+];
+
 const MenuItem = ({ icon, text, link }: Props) => {
   return (
     <li>
@@ -60,26 +83,9 @@ export const Header = () => {
           <div className={clsx('z-10 flex items-start transition-all duration-300 ease-in-out')}>
             <nav className="h-screen bg-primary">
               <ul className="flex flex-col space-y-10 p-10 text-lg text-secondary">
-                <MenuItem
-                  icon="/images/ic/ic_menu_info.png"
-                  text="關卡資訊"
-                  link="https://2022.thef2e.com/news"
-                />
-                <MenuItem
-                  icon="/images/ic/ic_menu_list.png"
-                  text="作品列表"
-                  link="https://2022.thef2e.com/works"
-                />
-                <MenuItem
-                  icon="/images/ic/ic_menu_strategy.png"
-                  text="攻略資源"
-                  link="https://hackmd.io/ofJD4K7iSI65V19zxC7d0w"
-                />
-                <MenuItem
-                  icon="/images/ic/ic_menu_job.png"
-                  text="求職專區"
-                  link="https://2022.thef2e.com/jobs"
-                />
+                {MenuList.map((item) => (
+                  <MenuItem key={item.text} icon={item.icon} text={item.text} link={item.link} />
+                ))}
               </ul>
             </nav>
             <button className="w-10 pt-3 lg:self-center" onClick={handleClick}>
