@@ -26,8 +26,8 @@ export const RefProvider = ({ children }: PropsWithChildren) => {
   const joinRef = useRef(null);
   const joinButtonRef = useRef(null);
   const desktopLogoRef = useRef(null);
-  const lineRef = useRef<HTMLDivElement>(null);
-  const deskBottomRef = useRef<HTMLDivElement>(null);
+  const lineRef = useRef(null);
+  const deskBottomRef = useRef(null);
 
   return (
     <RefContext.Provider
