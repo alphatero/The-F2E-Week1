@@ -2,7 +2,6 @@ import { Icons, TalkTitle } from '@/components/common';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import { useLayoutEffect, useRef } from 'react';
-import { useRefContext } from '@/components/contexts';
 
 const scheduleList = [
   {
@@ -56,7 +55,6 @@ const scheduleList = [
 ];
 
 export function Schedule() {
-  const { scheduleTitleRef } = useRefContext();
   const titleRef = useRef<HTMLDivElement>(null);
   const sloganRef = useRef<HTMLDivElement>(null);
   const sloganParentRef = useRef<HTMLDivElement>(null);
@@ -81,8 +79,6 @@ export function Schedule() {
               trigger: containerRef.current,
               pin: true,
               scrub: true,
-              // pinSpacing: true,
-              // markers: true,
             },
           })
           .fromTo(lineRef.current!.children[0], { scaleX: 1 }, { scaleX: 0, duration: 1 })
@@ -195,7 +191,7 @@ export function Schedule() {
       ref={containerRef}
     >
       <div className="relative flex h-full w-full flex-col items-center space-y-6 lg:px-20  lg:pt-4">
-        <TalkTitle className="lg:hidden" title="重要時程" ref={scheduleTitleRef} />
+        <TalkTitle className="lg:hidden" title="重要時程" ref={titleRef} />
 
         <ul className="lg:flex">
           {scheduleList.map((schedule) => (

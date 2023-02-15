@@ -6,12 +6,6 @@ export const Loading = () => {
   const loadingRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  function getRadius() {
-    if (!loadingRef.current) return 0;
-    const { width, height } = loadingRef.current.getBoundingClientRect();
-    return Math.sqrt(width ** 2 + height ** 2);
-  }
-
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       gsap
