@@ -43,7 +43,7 @@ export function Finish() {
     return () => {
       ctx.revert();
     };
-  }, []);
+  });
 
   return (
     <>

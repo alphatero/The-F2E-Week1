@@ -11,8 +11,8 @@ export const Base = ({ children }: PropsWithChildren) => {
       )}
     >
       <Header />
-      <div className="relative w-full bg-secondary pb-28 lg:pb-0">{children}</div>
       <Bottom />
+      <div className="relative w-full bg-secondary pb-28 lg:pb-0">{children}</div>
     </div>
   );
 };
